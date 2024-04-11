@@ -11,35 +11,45 @@ print("To win you must get one of the following combinations:\n7\t\t7\t\t7\t\t\t
 itemlist = ["7","GOLD","CLOVER","ORANGE","CHERRY"] #list of item in our slot machine, able to change it later
 initialcredits = 100 #initial player's credits
 
-firstslot = None #variable for first slot
-secondslot = None #variable for second slot
-thirdslot = None #variable for third slot
+firstsq = None #variable for first slot
+secondsq = None #variable for second slot
+thirdsq = None #variable for third slot
 credits = initialcredits
 
-while True: #create loop
-      while credits > 0: #loop while user still have credits
-            print("You have £", credits) #Show user how much credits they have
-            try:
-                  stake_amount = int(input("Please enter stake amount: ")) #Asking for stake amount
-            except: #if user's input is not in integer format
-                  print("Please enter a whole number of amount to stake, Please try again.") #show error message and ask for input again
+while True: #Create loop
+    while credits > 0: #While user still have credits
+        print("You have £", credits)
+        bet_amount_input = input("Please enter bet amount, type '0' for free trial, or type 'quit' to exit the game: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
+        if bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'
+            break #break the loop
+        if bet_amount_input.isdigit(): #if user input is in degit
+            bet_amount = int(bet_amount_input) #change user input into integer format
+            if bet_amount > credits: #check if bet amount is higher than user's credits
+                print("Not enough credit, please try again.") #show error message
+                continue #go back to start
+        elif bet_amount_input.lower() == '0': #if user input == 0
+            bet_amount = 0 #given bet amount = 0 and start free trial round
+        else:
+            print("Invalid input, please try again.")  # show error message
+            continue
 
-            if stake_amount>credits: #if user want to stake more than credits they have
-                  print("Not enough credit, please try again.") #show error message
-            else:
-                  credits -= stake_amount #update credits balance after put stake
-                  firstslot = random.choice(itemlist) #random first symbol by using random function
-                  secondslot = random.choice(itemlist) #random second symbol by using random function
-                  thirdslot = random.choice(itemlist) #random third symbol by using random function
-                  print("Stake accepted. Good luck.")
-                  print("Spinning now...")
-                  time.sleep(1) #delay the program 1 second
-                  print()
-                  print("| ", firstslot, " | ", secondslot, " | ", thirdslot, " |\n") #show the result after spin
+        credits -= bet_amount  # update credits balance after putting the bet
+        firstsq = random.choice(itemlist)  # random first symbol using the random function
+        secondsq = random.choice(itemlist)  # random second symbol using the random function
+        thirdsq = random.choice(itemlist)  # random third symbol using the random function
+        print("Stake accepted. Good luck.")
+        print("Spinning now...")
+        time.sleep(1)  # delay the program for 1 second
+        print()
+        print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " |\n")  # show the result after spin
+        if firstsq == secondsq and secondsq == thirdsq:
+            winamount = bet_amount * 2
+            print("You won £", winamount)
+            credits += winamount
+        else:
+            print("You lost")
+            # from here, doing if-else condition to show the condition how to win the game.
+    print("Thank you for playing.")
+    time.sleep(1.5)
+    break  # exit the loop, end program
 
-                  #from here, doing if-else condition to show the condition how to win the game.
-      print("You are out of credits") #if user run out of credit, show message and quit the program.
-      print("Thank you for playing.")
-      time.sleep(1.5)
-      break #exit the loop, end program
-njjijij
