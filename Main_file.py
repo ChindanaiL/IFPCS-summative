@@ -8,7 +8,7 @@ print("To win you must get one of the following combinations:\n7\t\t7\t\t7\t\t\t
       "\nORANGE\tORANGE\tORANGE/GOLD\tWinning amount:\t25$\nCHERRY\tCHERRY\tCHERRY\t\tWinning amount:\t15$"
       "\nCHERRY\tCHERRY\t-\t\t\tWinning amount:\t10$\nCHERRY\t-\t\t-\t\t"
       "\tWinning amount:\t5$") #Rule and condition to win the game, able to change it later
-itemlist = ["7","GOLD","CLOVER","ORANGE","CHERRY"] #list of item in our slot machine, able to change it later
+itemlist = ["7","@","*","#","9"] #list of item in our slot machine, able to change it later
 initialcredits = 100 #initial player's credits
 
 firstsq = None #variable for first slot
@@ -40,12 +40,27 @@ while True: #Create loop
         print("Stake accepted. Good luck.")
         print("Spinning now...")
         time.sleep(1)  # delay the program for 1 second
+
         print()
-        print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " |\n")  # show the result after spin
+
+        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), "|")
+        print('-------------')
+
+        print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " |")  # show the result after spin
+        print('-------------')
+
+        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), "|")
+        print()
+
         if firstsq == secondsq and secondsq == thirdsq:
             winamount = bet_amount * 2
             print("You won £", winamount)
             credits += winamount
+        elif:
+            firstsq == secondsq and secondsq == thirdsq and firstsq == *:
+                winamount = bet_amount * 5
+                print("You won £", winamount)
+                credits += winamount
         else:
             print("You lost")
             # from here, doing if-else condition to show the condition how to win the game.
