@@ -77,6 +77,58 @@ while True: #Create loop
             print("You lost")
             # from here, doing if-else condition to show the condition how to win the game.
 
+        # free spins
+        if firstsq == fourthsq:
+            free_spins = random.randint(1,5) # win between 1 to 5 free spins
+            print(f'you won {free_spins} free spins')
+
+            for i in range(free_spins):
+                print('you have a free spin')
+                firstsq = random.choice(itemlist)
+                secondsq = random.choice(itemlist)
+                thirdsq = random.choice(itemlist)
+                fourthsq = random.choice(itemlist)
+
+                print("Spinning now...")
+                time.sleep(1)
+
+                print()
+
+                print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+                      " | ", random.choice(itemlist), " | ")
+                print('------------------------')
+
+                print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq,
+                      " | ")  # show the result after spin
+                print('------------------------')
+
+                print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+                      " | ", random.choice(itemlist), " | ")
+                print()
+
+                #conditions to win free spins
+                freespinwin = 0
+                if firstsq == secondsq == thirdsq == fourthsq:
+                    freespinwin = bet_amount * 5
+                elif firstsq == secondsq == thirdsq == fourthsq == '*':
+                    freespinwin = bet_amount * 20
+                elif firstsq == thirdsq:
+                    freespinwin = bet_amount * 3
+                elif secondsq == fourthsq:
+                    freespinwin = bet_amount * 3
+                elif firstsq == secondsq or secondsq == thirdsq == '*':
+                    freespinwin = bet_amount * 5
+                elif firstsq == secondsq == thirdsq == fourthsq == '7':
+                    freespinwin = bet_amount * 15
+                elif firstsq == secondsq == thirdsq == fourthsq == '*':
+                    freespinwin = bet_amount * 5
+
+                if freespinwin > 0:
+                    print("You won £", freespinwin)
+                    credits += freespinwin
+                else:
+                    print("You lost")
+
     print("Thank you for playing.")
     time.sleep(1.5)
     break  # exit the loop, end program
