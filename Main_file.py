@@ -8,12 +8,13 @@ print("To win you must get one of the following combinations:\n7\t\t7\t\t7\t\t\t
       "\nORANGE\tORANGE\tORANGE/GOLD\tWinning amount:\t25$\nCHERRY\tCHERRY\tCHERRY\t\tWinning amount:\t15$"
       "\nCHERRY\tCHERRY\t-\t\t\tWinning amount:\t10$\nCHERRY\t-\t\t-\t\t"
       "\tWinning amount:\t5$") #Rule and condition to win the game, able to change it later
-itemlist = ["7","@","*","#","9"] #list of item in our slot machine, able to change it later
+itemlist = ["7","@","*","#"] #list of item in our slot machine, able to change it later
 initialcredits = 100 #initial player's credits
 
 firstsq = None #variable for first slot
 secondsq = None #variable for second slot
 thirdsq = None #variable for third slot
+fourthsq = None #variable for fourth slot
 credits = initialcredits
 
 while True: #Create loop
@@ -37,33 +38,45 @@ while True: #Create loop
         firstsq = random.choice(itemlist)  # random first symbol using the random function
         secondsq = random.choice(itemlist)  # random second symbol using the random function
         thirdsq = random.choice(itemlist)  # random third symbol using the random function
+        fourthsq = random.choice(itemlist)  # random fourth symbol using the random function
         print("Stake accepted. Good luck.")
         print("Spinning now...")
         time.sleep(1)  # delay the program for 1 second
-
+        # designing the way the slot will display
         print()
 
-        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), "|")
-        print('-------------')
+        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
+        print('------------------------')
 
-        print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " |")  # show the result after spin
-        print('-------------')
+        print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq, " | ")  # show the result after spin
+        print('------------------------')
 
-        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), "|")
+        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
         print()
+        # adding different ways to win
+        bet_win = 0
+        if firstsq == secondsq == thirdsq == fourthsq:
+            bet_win = bet_amount * 5
+        elif firstsq == secondsq == thirdsq == fourthsq == '*':
+                bet_win = bet_amount * 20
+        elif firstsq == thirdsq:
+                bet_win = bet_amount * 3
+        elif secondsq == fourthsq:
+                bet_win = bet_amount * 3
+        elif firstsq == secondsq or secondsq == thirdsq == '*':
+                bet_win = bet_amount * 5
+        elif firstsq == secondsq == thirdsq == fourthsq == '7':
+                bet_win = bet_amount * 15
+        elif firstsq == secondsq == thirdsq == fourthsq == '*':
+                bet_win = bet_amount * 5
 
-        if firstsq == secondsq and secondsq == thirdsq:
-            winamount = bet_amount * 2
-            print("You won £", winamount)
-            credits += winamount
-        elif:
-            firstsq == secondsq and secondsq == thirdsq and firstsq == *:
-                winamount = bet_amount * 5
-                print("You won £", winamount)
-                credits += winamount
+        if bet_win > 0:
+            print("You won £", bet_win)
+            credits += bet_win
         else:
             print("You lost")
             # from here, doing if-else condition to show the condition how to win the game.
+
     print("Thank you for playing.")
     time.sleep(1.5)
     break  # exit the loop, end program
