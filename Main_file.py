@@ -2,13 +2,57 @@ import random
 import time
 from collections import Counter
 
-#defining the hearts for each level
-level_hearts = {
-    1: None,
-    2: "🖤🖤",
-    3: "🖤🖤🖤",
-    4: "🖤🖤🖤🖤",
+
+wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
+    1: 2,
+    2: 3,
+    3: 4,
+    4: 5,
 }
+
+level_wins = Counter() #add my detailed comment
+
+level_hearts = { #add my detailed comment
+    1: None,
+    2: None,
+    3: None,
+    4: None
+}
+#add my detailed comment
+class TreeNode:
+    def __init__(self, level, heart):
+        self.level = level
+        self.heart = heart
+        self.left = None
+        self.right = None
+
+root = TreeNode(1, "🖤")
+root.left = TreeNode(2, "🖤🖤")
+root.right = TreeNode(3, "🖤🖤🖤")
+root.left.left = TreeNode(4, "🖤🖤🖤🖤")
+
+wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
+    1: 2,
+    2: 3,
+    3: 4,
+    4: 5,
+}
+#add my detailed comment
+def unlock_hearts():
+    for level in level_wins.keys():
+        wins_required = wins_to_unlock_hearts[level]
+        if level_wins[level] >= wins_required and level_hearts[level] is None:
+            level_hearts[level] = level_hearts[level]
+            if level == 1:
+                level_hearts[level] = "🖤"
+            elif level == 2:
+                level_hearts[level] = "🖤🖤"
+            elif level == 3:
+                level_hearts[level] = "🖤🖤🖤"
+            elif level == 4:
+                level_hearts[level] = "🖤🖤🖤🖤"
+            print(f"Congratulations! You've unlocked the heart for Level {level}: {level_hearts[level]}")
+
 
 print("")
 print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂") #the welcome message
@@ -27,31 +71,6 @@ print("LET THE GAMES BEGIN...")
 itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 initialcredits = 100 #initial player's credits
 current_level = 1 #tracking the current level/account status
-
-wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
-    1: 2,
-    2: 3,
-    3: 4,
-    4: 5,
-}
-
-level_wins = Counter() #implementing the Counter algarithm to track the wins for each level
-
-#unlocking the hearts for each level
-def unlock_hearts():
-    for level in level_hearts.keys():
-        wins_required = wins_to_unlock_hearts[level]
-        if level_wins[level] >= wins_required and level_hearts[level] is None:
-            if level == 1:
-                level_hearts[level] = "🖤"
-            elif level == 2:
-                level_hearts[level] = "🖤🖤"
-            elif level == 3:
-                level_hearts[level] = "🖤🖤🖤"
-            elif level == 4:
-                level_hearts[level] = "🖤🖤🖤🖤"
-            print(f"Congratulations! You've unlocked the heart for Level {level}: {level_hearts[level]}")
-
 
 firstsq = None #variable for first slot
 secondsq = None #variable for second slot
