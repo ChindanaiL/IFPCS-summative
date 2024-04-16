@@ -29,7 +29,7 @@ class TreeNode:
 root = TreeNode(1, "🖤")
 root.left = TreeNode(2, "🖤🖤")
 root.right = TreeNode(3, "🖤🖤🖤")
-root.left.left = TreeNode(4, "🖤🖤🖤🖤")
+root.left.left = TreeNode(4, "🖤🖤🖤🖤")    #not working properly
 
 wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
     1: 2,
