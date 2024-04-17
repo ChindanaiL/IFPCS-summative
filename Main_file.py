@@ -117,17 +117,16 @@ while True: #Create loop
         if firstsq == secondsq == thirdsq == fourthsq:
             bet_win = bet_amount * 5
         elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
-                bet_win = bet_amount * 20
+            bet_win = bet_amount * 20
         elif firstsq == thirdsq:
-                bet_win = bet_amount * 3
+            bet_win = bet_amount * 2
         elif secondsq == fourthsq:
-                bet_win = bet_amount * 3
+            bet_win = bet_amount * 2
         elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
-                bet_win = bet_amount * 3
-        elif firstsq == secondsq == '🍊':
-                bet_win = bet_amount * 4
-        elif firstsq == secondsq or thirdsq == fourthsq:
-                bet_win = bet_amount * 5
+            bet_win = bet_amount * 3
+        elif firstsq == secondsq == '7':
+            bet_win = bet_amount * 2
+
 
         if bet_win > 0:
             print("You won £", bet_win)
@@ -177,15 +176,14 @@ while True: #Create loop
                 elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
                     freespinwin = bet_amount * 20
                 elif firstsq == thirdsq:
-                    freespinwin = bet_amount * 3
+                    freespinwin = bet_amount * 2
                 elif secondsq == fourthsq:
-                    freespinwin = bet_amount * 3
+                    freespinwin = bet_amount * 2
                 elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
                     freespinwin = bet_amount * 3
-                elif firstsq == secondsq == '🍊':
-                    freespinwin = bet_amount * 4
-                elif firstsq == secondsq or thirdsq == fourthsq:
-                    freespinwin = bet_amount * 5
+                elif firstsq == secondsq == '7':
+                    freespinwin = bet_amount * 2
+
 
                 if freespinwin > 0:
                     print("You won £", freespinwin)
