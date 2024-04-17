@@ -1,6 +1,7 @@
 import random
 import time
 from collections import Counter
+
 itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 
 
@@ -19,6 +20,7 @@ level_hearts = { #add my detailed comment
     3: None,
     4: None
 }
+
 #add my detailed comment
 class TreeNode:
     def __init__(self, level, heart):
@@ -142,6 +144,9 @@ while True: #Create loop
             print(f'you won {free_spins} free spins')
 
             for i in range(free_spins):
+                freespinwin = 0  #initialing the freespinwin variable
+
+            for i in range(free_spins):
                 print('you have a free spin')
                 firstsq = random.choice(itemlist)
                 secondsq = random.choice(itemlist)
@@ -168,19 +173,19 @@ while True: #Create loop
                 #conditions to win free spins
                 freespinwin = 0
                 if firstsq == secondsq == thirdsq == fourthsq:
-                    bet_win = bet_amount * 5
+                    freespinwin = bet_amount * 5
                 elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
-                    bet_win = bet_amount * 20
+                    freespinwin = bet_amount * 20
                 elif firstsq == thirdsq:
-                    bet_win = bet_amount * 3
+                    freespinwin = bet_amount * 3
                 elif secondsq == fourthsq:
-                    bet_win = bet_amount * 3
+                    freespinwin = bet_amount * 3
                 elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
-                    bet_win = bet_amount * 3
+                    freespinwin = bet_amount * 3
                 elif firstsq == secondsq == '🍊':
-                    bet_win = bet_amount * 4
+                    freespinwin = bet_amount * 4
                 elif firstsq == secondsq or thirdsq == fourthsq:
-                    bet_win = bet_amount * 5
+                    freespinwin = bet_amount * 5
 
                 if freespinwin > 0:
                     print("You won £", freespinwin)
