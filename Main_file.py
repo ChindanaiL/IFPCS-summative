@@ -31,18 +31,12 @@ root.left = TreeNode(2, "🖤🖤")
 root.right = TreeNode(3, "🖤🖤🖤")
 root.left.left = TreeNode(4, "🖤🖤🖤🖤")    #not working properly
 
-wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
-    1: 2,
-    2: 3,
-    3: 4,
-    4: 5,
-}
+
 #add my detailed comment
 def unlock_hearts():
     for level in level_wins.keys():
         wins_required = wins_to_unlock_hearts[level]
         if level_wins[level] >= wins_required and level_hearts[level] is None:
-            level_hearts[level] = level_hearts[level]
             if level == 1:
                 level_hearts[level] = "🖤"
             elif level == 2:
@@ -192,10 +186,16 @@ while True: #Create loop
                 else:
                     print("You lost")
 
-        #check if the user beat the game
-        if initialcredits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
-            print("Congratulations! You've collected dimond 💎 and you've beat the game! ")
-            break
+        #checking if the user beat the game
+        if bet_win > 0 or freespinwin > 0:
+            unlock_hearts()
+            #cheacking if the current level met level 4 and £500
+            if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
+                current_level += 1
+            #relaesing the diamond
+            elif current_level == 4 and initialcredits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
+                print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
+                break
 
     print("Thank you for playing.")
     time.sleep(1.5)
