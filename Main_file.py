@@ -142,9 +142,7 @@ while True: #Create loop
             free_spins = random.randint(1,5) # win between 1 to 5 free spins
             print(f'you won {free_spins} free spins')
 
-            for i in range(free_spins):
-                freespinwin = 0  #initialing the freespinwin variable
-
+            freespinwin = 0 # initializing the freespinwin variable
             for i in range(free_spins):
                 print('you have a free spin')
                 firstsq = random.choice(itemlist)
@@ -170,20 +168,21 @@ while True: #Create loop
                 print()
 
                 #conditions to win free spins
-                freespinwin = 0
+                spinwin = 0
                 if firstsq == secondsq == thirdsq == fourthsq:
-                    freespinwin = bet_amount * 5
+                    spinwin = bet_amount * 5
                 elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
-                    freespinwin = bet_amount * 20
+                    spinwin = bet_amount * 20
                 elif firstsq == thirdsq:
-                    freespinwin = bet_amount * 2
+                    spinwin = bet_amount * 2
                 elif secondsq == fourthsq:
-                    freespinwin = bet_amount * 2
+                    spinwin = bet_amount * 2
                 elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
-                    freespinwin = bet_amount * 3
+                    spinwin = bet_amount * 3
                 elif firstsq == secondsq == '7':
-                    freespinwin = bet_amount * 2
+                    spinwin = bet_amount * 2
 
+                freespinwin += spinwin # Accumulate the winnings from each free spin
 
                 if freespinwin > 0:
                     print("You won £", freespinwin)
