@@ -1,6 +1,7 @@
 import random
 import time
 from collections import Counter
+itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 
 
 wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
@@ -51,18 +52,19 @@ def unlock_hearts():
 print("")
 print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂") #the welcome message
 print("")
-print("        \033[1mTo beat the game you must complete two main requirements and collect the dimond --> 💎\033[1m") #using ANSI escape sequences to bold text
+print("        \033[1mTo beat the game you must complete two main requirements and collect the diamond --> 💎\033[1m") #using ANSI escape sequences to bold text
 print("")
-print("\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:\n\t 7\t\t 7\t\t 7\t\t\tWinning amount:\t£250"
-      "\n\tGOLD\tGOLD\tGOLD\t\tWinning amount:\t£100\n\tCLOVER\tCLOVER\tCLOVER\t\tWinning amount:\t£50"
-      "\n\tORANGE\tORANGE\tORANGE/GOLD\tWinning amount:\t£25\n\tCHERRY\tCHERRY\tCHERRY\t\tWinning amount:\t£15"
-      "\n\tCHERRY\tCHERRY\t____\t\tWinning amount:\t£10\n\tCHERRY\t____\t____"
-      "\t\tWinning amount:\t£5") #Rule and condition to win the game, able to change it later
+print("Item list: ", itemlist)
+print("\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:\n\t   🍊/🍀\t\t\t   🍊/🍀\t\t\t   🍊/🍀\t\t\t   🍊/🍀\t\tWinning amount:\tBet amount *5"
+      "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20\n\t\t7\t\t\t\t\t7\t\t\t\t\t7\t\t\t\t\t7\t\t\tWinning amount:\tBet amount *15"
+      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\tWinning amount:\tBet amount *3\n\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tBet amount *3"
+      "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *5\n\t  ______\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t  ______\t\tWinning amount:\tBet amount *5"
+      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tFree spin") #Rule and condition to win the game, able to change it later
+
 print("\n2. Pass all four levels of status: \n\t2 wins \t\tlevel 1\t\t🖤 \n\t3 wins \t\tlevel 2\t\t🖤🖤 \n\t4 wins \t\tlevel 3\t\t🖤🖤🖤 \n\t5 wins \t\tlevel 4\t\t🖤🖤🖤🖤")
 print("")
 print("LET THE GAMES BEGIN...")
 
-itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 initialcredits = 100 #initial player's credits
 current_level = 1 #tracking the current level/account status
 
