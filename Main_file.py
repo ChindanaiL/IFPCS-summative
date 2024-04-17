@@ -120,11 +120,11 @@ while True: #Create loop
                 bet_win = bet_amount * 3
         elif secondsq == fourthsq:
                 bet_win = bet_amount * 3
-        elif firstsq == secondsq or secondsq == thirdsq == '🍒':
-                bet_win = bet_amount * 5
-        elif firstsq == secondsq == thirdsq == fourthsq == ' 7':
-                bet_win = bet_amount * 15
-        elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
+        elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
+                bet_win = bet_amount * 3
+        elif firstsq == secondsq == '🍊':
+                bet_win = bet_amount * 4
+        elif firstsq == secondsq or thirdsq == fourthsq:
                 bet_win = bet_amount * 5
 
         if bet_win > 0:
@@ -168,19 +168,19 @@ while True: #Create loop
                 #conditions to win free spins
                 freespinwin = 0
                 if firstsq == secondsq == thirdsq == fourthsq:
-                    freespinwin = bet_amount * 5
+                    bet_win = bet_amount * 5
                 elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
-                    freespinwin = bet_amount * 20
+                    bet_win = bet_amount * 20
                 elif firstsq == thirdsq:
-                    freespinwin = bet_amount * 3
+                    bet_win = bet_amount * 3
                 elif secondsq == fourthsq:
-                    freespinwin = bet_amount * 3
-                elif firstsq == secondsq or secondsq == thirdsq == '🍒':
-                    freespinwin = bet_amount * 5
-                elif firstsq == secondsq == thirdsq == fourthsq == ' 7':
-                    freespinwin = bet_amount * 15
-                elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
-                    freespinwin = bet_amount * 5
+                    bet_win = bet_amount * 3
+                elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
+                    bet_win = bet_amount * 3
+                elif firstsq == secondsq == '🍊':
+                    bet_win = bet_amount * 4
+                elif firstsq == secondsq or thirdsq == fourthsq:
+                    bet_win = bet_amount * 5
 
                 if freespinwin > 0:
                     print("You won £", freespinwin)
@@ -192,12 +192,12 @@ while True: #Create loop
         if bet_win > 0 or freespinwin > 0:
             unlock_hearts()
             #cheacking if the current level met level 4 and £500
-            if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
-                current_level += 1
-            #relaesing the diamond
-            elif current_level == 4 and initialcredits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
-                print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
-                break
+        if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
+            current_level += 1
+        #relaesing the diamond
+        elif current_level == 4 and initialcredits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
+            print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
+            break
 
     print("Thank you for playing.")
     time.sleep(1.5)
