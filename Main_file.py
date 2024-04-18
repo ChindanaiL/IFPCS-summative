@@ -1,8 +1,9 @@
 import random
 import time
-from collections import Counter
+from collections import Counter, deque
 
 itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
+freespinwin = 0
 
 
 wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
@@ -79,18 +80,33 @@ secondsq = None #variable for second slot
 thirdsq = None #variable for third slot
 fourthsq = None #variable for fourth slot
 credits = initialcredits
+slothistory = deque(maxlen=5) #Using deque implementation to keep track of last 5 rounds
 
 while True: #Create loop
     while credits > 0: #While user still have credits
         print("\033[1m\nAccount Balance: £", credits, "\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
-        bet_amount_input = input("Please enter bet amount, type '0' for free trial, or type 'quit' to exit the game: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
+        bet_amount_input = input("Please enter bet amount, type '0' for free trial, 'history' to see your last 5 round history, or type 'quit' to exit the game: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
         if bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'
             break #break the loop
+
+        elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history'
+            if slothistory: #if have data in history
+                print("\nLast 5 Rounds History: ") #print text
+                i = 1
+                for round_info in slothistory: #loop print history
+                    print(f"{i}. {round_info}")
+                    i+=1
+            else: #if don't have any data in history
+                print("\nNo history available yet.")
+            continue #go back
+            time.sleep(1.5)
+
         if bet_amount_input.isdigit(): #if user input is in degit
             bet_amount = int(bet_amount_input) #change user input into integer format
             if bet_amount > credits: #check if bet amount is higher than user's credits
                 print("Not enough credit, please try again.") #show error message
                 continue #go back to start
+
         elif bet_amount_input.lower() == '0': #if user input == 0
             bet_amount = 0 #given bet amount = 0 and start free trial round
         else:
@@ -204,6 +220,8 @@ while True: #Create loop
         elif current_level == 4 and initialcredits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
             print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
             break
+        round_info = {"Bet Amount: ": bet_amount, "Win Amount: ":bet_win, "Free Spin Win: ":freespinwin}
+        slothistory.append(round_info)
 
     print("Thank you for playing.")
     time.sleep(1.5)
