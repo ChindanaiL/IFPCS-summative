@@ -57,11 +57,15 @@ print("")
 print("        \033[1mTo beat the game you must complete two main requirements and collect the diamond --> 💎\033[1m") #using ANSI escape sequences to bold text
 print("")
 print("Item list: ", itemlist)
-print("\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:\n\t   🍊/🍀\t\t\t   🍊/🍀\t\t\t   🍊/🍀\t\t\t   🍊/🍀\t\tWinning amount:\tBet amount *5"
-      "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20\n\t\t7\t\t\t\t\t7\t\t\t\t\t7\t\t\t\t\t7\t\t\tWinning amount:\tBet amount *15"
-      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\tWinning amount:\tBet amount *3\n\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tBet amount *3"
-      "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *5\n\t  ______\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t  ______\t\tWinning amount:\tBet amount *5"
-      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tFree spin") #Rule and condition to win the game, able to change it later
+print("\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+      "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20"
+      "\n\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\tWinning amount:\tBet amount *5"
+      "\n\t\t🍊\t\t\t\t\t🍊\t\t\t\t   7/🍊\t\t\t\t  ______\t\tWinning amount:\tBet amount *3"
+      "\n\t\t7\t\t\t\t\t7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+      "\n\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tBet amount *2"
+      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tFree spin") #Rule and condition to win the game, able to change it later"
+
 
 print("\n2. Pass all four levels of status: \n\t2 wins \t\tlevel 1\t\t🖤 \n\t3 wins \t\tlevel 2\t\t🖤🖤 \n\t4 wins \t\tlevel 3\t\t🖤🖤🖤 \n\t5 wins \t\tlevel 4\t\t🖤🖤🖤🖤")
 print("")
