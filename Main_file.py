@@ -217,7 +217,7 @@ while True: #Create loop
         if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
             current_level += 1
         #relaesing the diamond
-        elif current_level == 4 and initialcredits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
+        elif current_level == 4 and credits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
             print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
             break
         round_info = {"Bet Amount: ": bet_amount, "Win Amount: ":bet_win, "Free Spin Win: ":freespinwin}
