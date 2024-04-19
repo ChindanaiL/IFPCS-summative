@@ -34,6 +34,14 @@ class Queue: #Class queue
     def get_history(self): #function print data
         return self.historylist #display data in list
 
+def addspinhistory(bet_amount, win_amount, symbols): #function to add spindata into the list
+    spindata = {
+        "Bet amount": bet_amount,
+        "Win amount": win_amount,
+        "Symbols" : symbols
+    }
+    slothistory.enqueue(spindata)
+
 #add my detailed comment
 class TreeNode:
     def __init__(self, level, heart):
@@ -234,8 +242,7 @@ while True: #Create loop
         elif current_level == 4 and credits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
             print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
             break
-        round_info = {"Bet Amount: ": bet_amount, "Win Amount: ":bet_win}
-        slothistory.enqueue(round_info)
+        addspinhistory(bet_amount,bet_win, [firstsq,secondsq,thirdsq,fourthsq])
 
     print("Thank you for playing.")
     print("Exiting the game...")
