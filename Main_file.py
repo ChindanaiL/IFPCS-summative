@@ -1,6 +1,6 @@
 import random
 import time
-from collections import Counter, deque
+from collections import Counter
 
 itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 freespinwin = 0
@@ -21,6 +21,17 @@ level_hearts = { #add my detailed comment
     3: None,
     4: None
 }
+
+class Queue: #Class queue
+    def __init__(self,size):
+        self.size = size
+        self.historylist=[]
+    def enqueue(self, item): #function to keep update the history
+        if len(self.historylist) >=self.size: #if number of data in the list more than 5
+            self.historylist.pop(0) #delete oldest data
+        self.historylist.append(item) #add latest data
+    def get_history(self): #function print data
+        return self.historylist #display data in list
 
 #add my detailed comment
 class TreeNode:
@@ -80,7 +91,7 @@ secondsq = None #variable for second slot
 thirdsq = None #variable for third slot
 fourthsq = None #variable for fourth slot
 credits = initialcredits
-slothistory = deque(maxlen=5) #Using deque implementation to keep track of last 5 rounds
+slothistory = Queue(5) #Create queue for storing last 5 rounds history
 
 while True: #Create loop
     while credits > 0: #While user still have credits
@@ -93,9 +104,11 @@ while True: #Create loop
             if slothistory: #if have data in history
                 print("\nLast 5 Rounds History: ") #print text
                 i = 1
-                for round_info in slothistory: #loop print history
+                history = slothistory.get_history()
+                for round_info in history: #loop print history
                     print(f"{i}. {round_info}")
                     i+=1
+                time.sleep(1.5)
             else: #if don't have any data in history
                 print("\nNo history available yet.")
             continue #go back
@@ -221,8 +234,9 @@ while True: #Create loop
             print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
             break
         round_info = {"Bet Amount: ": bet_amount, "Win Amount: ":bet_win}
-        slothistory.append(round_info)
+        slothistory.enqueue(round_info)
 
     print("Thank you for playing.")
+    print("Exiting the game...")
     time.sleep(1.5)
     break  # exit the loop, end program
