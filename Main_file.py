@@ -6,12 +6,13 @@ itemlist = (" 7","🍊","🍒","🍀") #tuple list of item in our slot machine
 freespinwin = 0
 
 
-wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
-    1: 2,
-    2: 3,
-    3: 4,
-    4: 5,
-}
+
+wins_to_unlock_hearts = (  #defining the win requirments needed to unlock hearts for each level, immutable array
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5),
+)
 
 level_wins = Counter() #add my detailed comment
 
@@ -50,7 +51,7 @@ root.left.left = TreeNode(4, "🖤🖤🖤🖤")    #not working properly
 #add my detailed comment
 def unlock_hearts():
     for level in level_wins.keys():
-        wins_required = wins_to_unlock_hearts[level]
+        wins_required = wins_to_unlock_hearts[level -1][1] #level-1 to access the correct index  [1] to access second element of the tuple
         if level_wins[level] >= wins_required and level_hearts[level] is None:
             if level == 1:
                 level_hearts[level] = "🖤"
@@ -227,7 +228,7 @@ while True: #Create loop
         if bet_win > 0 or freespinwin > 0:
             unlock_hearts()
             #cheacking if the current level met level 4 and £500
-        if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
+        if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level-1][1]:
             current_level += 1
         #relaesing the diamond
         elif current_level == 4 and credits >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
