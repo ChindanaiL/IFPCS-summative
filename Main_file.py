@@ -2,7 +2,7 @@ import random
 import time
 from collections import Counter
 
-itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
+itemlist = (" 7","🍊","🍒","🍀") #tuple list of item in our slot machine
 freespinwin = 0
 
 
