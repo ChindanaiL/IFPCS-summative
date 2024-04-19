@@ -110,7 +110,7 @@ while True: #Create loop
             break #break the loop
 
         elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history'
-            if slothistory: #if have data in history
+            if slothistory.get_history(): #if have data in history
                 print("\nLast 5 Rounds History: ") #print text
                 i = 1
                 history = slothistory.get_history()
