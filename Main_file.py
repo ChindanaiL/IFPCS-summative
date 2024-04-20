@@ -140,7 +140,6 @@ while True: #Create loop
             else: #if user doesn't have any data in history
                 print("\nNo history available yet.")
             continue #go back
-            time.sleep(1.5)
 
         if bet_amount_input.isdigit(): #if user input is in degit
             bet_amount = int(bet_amount_input) #change user input into integer format
@@ -188,6 +187,12 @@ while True: #Create loop
         elif firstsq == secondsq == '7':
             bet_win = bet_amount * 2
 
+        if bet_win > 0:
+            print("You won £", bet_win)
+            credit += bet_win
+        else:
+            print("You lost")
+            # from here, doing if-else condition to show the condition how to win the game.
 
         # free spins
         if firstsq == fourthsq:
