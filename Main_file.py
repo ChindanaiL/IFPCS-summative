@@ -6,6 +6,8 @@ itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able t
 freespinwin = 0
 initialcredits = 100 #initial player's credits
 current_level = 1 #tracking the current level/account status
+winround = 0
+totalround = 0
 credit = initialcredits
 winnings = {}
 bonus_wins = Counter()
@@ -44,9 +46,34 @@ def addspinhistory(bet_amount, win_amount, symbols): #function to add spindata i
     spindata = {
         "Bet amount": bet_amount,
         "Win amount": win_amount,
-        "Symbols" : symbols
+        "Symbols": symbols
     }
     slothistory.enqueue(spindata)
+
+def calwinrate(history): #function to calculate winrate
+    if totalround !=0: #if totalround have data
+        winrate = (winround/totalround) * 100 #find all time winrate
+    else:
+        0
+    return winround, winrate
+
+def displayhistory(history): #function to show history
+    totalwin, winrate= calwinrate(history)
+    print("\nRound history and Win rate: ")
+    print("Total Round Played: ", totalround)
+    print("Total Wins: ", totalwin)
+    print(f"All-Times Win Rates: {winrate:.2f} %")
+    print(
+        "**Please note that free spins are not recorded in the history and are not involved in win rate calculations.**")
+    print("----------------------------------------------")
+    time.sleep(1.5)
+
+    print("\nLast 5 Rounds History: ")  # print text
+    i = 1
+    history = slothistory.get_history()
+    for round_info in history:  # loop print history
+        print(f"{i}. {round_info}")
+        i += 1
 
 
 #add my detailed comment
@@ -139,22 +166,22 @@ while True: #Create loop
 
     while credit > 0: #While user still have credits
         print("\033[1m\nAccount Balance: £", credit, "\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
-        bet_amount_input = input("Please enter bet amount, type '0' for free trial, 'history' to see your last 5 round history, or type 'quit' to exit the game: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
+        bet_amount_input = input("Please:"
+                                 "\n\tenter bet amount"
+                                 "\n\tor type '0' for free trial"
+                                 "\n\tor type 'history' to see your last 5 round history and all-time winrate, "
+                                 "\n\tor type 'quit' to exit the game."
+                                 "\n\tType here: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
         if bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'
             break #break the loop
 
         elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history'
-            if slothistory.get_history(): #if user has data in history
-                print("\nLast 5 Rounds History: ") #print text
-                i = 1
-                history = slothistory.get_history()
-                for round_info in history: #loop print history
-                    print(f"{i}. {round_info}")
-                    i+=1
+           if slothistory.get_history(): #checkk if history empty or not
+                displayhistory(slothistory.get_history()) #call function to print history and winrate
                 time.sleep(1.5)
-            else: #if user doesn't have any data in history
-                print("\nNo history available yet.")
-            continue #go back
+           else:
+               print("\nNo history available yet.")
+           continue #restart the loop
 
         if bet_amount_input.isdigit(): #if user input is in degit
             bet_amount = int(bet_amount_input) #change user input into integer format
@@ -175,6 +202,7 @@ while True: #Create loop
         fourthsq = random.choice(itemlist)  # random fourth symbol using the random function
         print("Stake accepted. Good luck.")
         print("Spinning now...")
+        totalround+=1 #count totalround that have been played
         time.sleep(1)  # delay the program for 1 second
         # designing the way the slot will display
         print()
@@ -207,6 +235,7 @@ while True: #Create loop
             print("You won £", bet_win)
             credit += bet_win
             winnings[len(winnings) + 1] = bet_win
+            winround +=1 #round win count
 
         # free spins
         if firstsq == fourthsq:
@@ -294,8 +323,9 @@ while True: #Create loop
             current_level += 1
             player_tree = create_tree(current_level, level_hearts)
             display_tree(player_tree)
-        round_info = {"Bet Amount: ": bet_amount, "Win Amount: ": bet_win}
-        slothistory.enqueue(round_info)
+
+        addspinhistory(bet_amount,bet_win, [firstsq,secondsq,thirdsq,fourthsq])
+
 
     print("Thank you for playing.")
     sorted_winnings = sorted(winnings.items(), key=lambda x: x[1], reverse=True)
