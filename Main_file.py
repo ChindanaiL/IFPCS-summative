@@ -2,7 +2,13 @@ import random
 import time
 from collections import Counter, deque
 
-itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
+# Define themes, symbols, and betting options
+themes = {
+    "Classic": [" 7","🍊","🍒","🍀"],
+    "Fruit": ["🍏","🍋","🍇","🍉"],
+    "Animal": ["🐶","🐱","🐭","🐹"]
+}
+#itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 freespinwin = 0
 initialcredits = 100 #initial player's credits
 current_level = 1 #tracking the current level/account status
@@ -97,21 +103,29 @@ def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
         if bonus_wins["bonus"] == 2:  #2 "🍀", " 7" combinations to win
             return True
     return False
+# Function to allow players to choose theme, symbols, and betting options
+def choose_options():
+    print("Available Themes:")
+    for theme in themes.keys():
+        print(f"- {theme}")
+    selected_theme = input("Choose a theme: ")
 
-def search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
-    bonus_items = ("🍀", " 7")
-    if all(symbol in bonus_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
-        bonus_wins["bonus"] += 1
-        if bonus_wins["bonus"] == 2:
-            return True
-    return False
+    if selected_theme not in themes:
+        print("Invalid theme. Please choose from the available themes.")
+        return choose_options()
+
+    itemlist = themes[selected_theme]
+
+    # Add more customization options here...
+
+    return itemlist
 
 print("")
 print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂") #the welcome message
 print("")
 print("        \033[1mTo beat the game you must complete two main requirements and collect the diamond --> 💎\033[1m") #using ANSI escape sequences to bold text
 print("")
-print("Item list: ", itemlist)
+#print("itemlist: ", itemlist)
 print("\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
       "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20"
       "\n\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\tWinning amount:\tBet amount *5"
@@ -134,8 +148,10 @@ fourthsq = None #variable for fourth slot
 
 while True: #Create loop
     #add detailed comment
+    itemlist = choose_options()
     player_tree = create_tree(current_level, level_hearts)
     display_tree(player_tree)
+
 
     while credit > 0: #While user still have credits
         print("\033[1m\nAccount Balance: £", credit, "\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
@@ -191,15 +207,15 @@ while True: #Create loop
         bet_win = 0
         if firstsq == secondsq == thirdsq == fourthsq:
             bet_win = bet_amount * 5
-        elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
+        elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
             bet_win = bet_amount * 20
         elif firstsq == thirdsq:
             bet_win = bet_amount * 2
         elif secondsq == fourthsq:
             bet_win = bet_amount * 2
-        elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
+        elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
             bet_win = bet_amount * 3
-        elif firstsq == secondsq == '7':
+        elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
             bet_win = bet_amount * 2
 
 
@@ -242,15 +258,16 @@ while True: #Create loop
                 spinwin = 0
                 if firstsq == secondsq == thirdsq == fourthsq:
                     spinwin = bet_amount * 5
-                elif firstsq == secondsq == thirdsq == fourthsq == '🍒':
+                elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
                     spinwin = bet_amount * 20
                 elif firstsq == thirdsq:
                     spinwin = bet_amount * 2
                 elif secondsq == fourthsq:
                     spinwin = bet_amount * 2
-                elif firstsq == secondsq == '🍊' and (thirdsq == '🍊' or thirdsq == '7'):
+                elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (
+                        thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
                     spinwin = bet_amount * 3
-                elif firstsq == secondsq == '7':
+                elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
                     spinwin = bet_amount * 2
 
 
