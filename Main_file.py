@@ -1,6 +1,6 @@
 import random
 import time
-from collections import Counter #, deque idk if needed
+from collections import Counter #, deque idk
 
 itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 freespinwin = 0
@@ -91,7 +91,7 @@ def check_for_jackpot(firstsq, secondsq, thirdsq, fourthsq):
             return True
     return False
 def search_for_winning_combinations(outcome):
-    global level_wins, credit
+    global level_wins
     if outcome.count(outcome[0]) == 3 and outcome[1] == outcome[2] and outcome[3] == outcome[0]:
         if level_wins[current_level] == 1:
             print("You've matched three symbols twice! You have 1 more left to win $200.")
@@ -271,6 +271,8 @@ while True: #Create loop
             credit += bet_win
             level_wins[current_level] += 1
             unlock_hearts(current_level)
+        else:
+            print("You lost")
 
         # added new element
         if check_for_jackpot(firstsq, secondsq, thirdsq, fourthsq):
@@ -285,13 +287,14 @@ while True: #Create loop
             player_tree = create_tree(current_level, level_hearts)
             display_tree(player_tree)
         # relaesing the diamond
-        if current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
+        elif current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
             print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
             break
+
         round_info = {"Bet Amount: ": bet_amount, "Win Amount: ": bet_win}
         slothistory.enqueue(round_info)
 
     print("Thank you for playing.")
     print("Exiting the game...")
     time.sleep(1.5)
-    break  #exit the game
+    break  # exit the game
