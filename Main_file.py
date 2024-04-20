@@ -1,6 +1,6 @@
 import random
 import time
-from collections import Counter #, deque idk
+from collections import Counter, deque
 
 itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 freespinwin = 0
@@ -8,6 +8,10 @@ initialcredits = 100 #initial player's credits
 current_level = 1 #tracking the current level/account status
 credit = initialcredits
 winnings = {}
+bonus_wins = Counter()
+level_wins = Counter()
+jackpot_wins = Counter()
+
 
 wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
     1: 2,
@@ -16,10 +20,12 @@ wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts
     4: 5,
 }
 
-level_wins = Counter() #add my detailed comment
-
-jackpot_wins = Counter() #add my detailed comment
-
+level_hearts = { #add my detailed comment
+    1: None,
+    2: None,
+    3: None,
+    4: None
+}
 
 class Queue: #Class queue
     def __init__(self,size):
@@ -42,13 +48,6 @@ def addspinhistory(bet_amount, win_amount, symbols): #function to add spindata i
     }
     slothistory.enqueue(spindata)
 
-
-level_hearts = { #add my detailed comment
-    1: None,
-    2: None,
-    3: None,
-    4: None
-}
 
 #add my detailed comment
 class TreeNode:
@@ -84,24 +83,29 @@ def unlock_hearts(current_level):
         print(f"Congratulations! You've unlocked the heart for level {current_level}: {level_hearts[current_level]}")
 
 # add my detailed comment
-def check_for_jackpot(firstsq, secondsq, thirdsq, fourthsq):
+def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
     jackpot_items= ("🍀", " 7")
     if all(symbol in jackpot_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
         jackpot_wins["jackpot"] += 1
-        if jackpot_wins["jackpot"] == 2:  #2 jackpot combinations to win
+        if jackpot_wins["jackpot"] == 5:  #5 "🍀", " 7" combinations to win
             return True
     return False
-def search_for_winning_combinations(outcome):
-    global level_wins
-    if outcome.count(outcome[0]) == 3 and outcome[1] == outcome[2] and outcome[3] == outcome[0]:
-        if level_wins[current_level] == 1:
-            print("You've matched three symbols twice! You have 1 more left to win $200.")
-        elif level_wins[current_level] == 2:
-            print("Congratulations! You've matched three symbols twice and won $200!")
-            credit += 200
-            level_wins[current_level] = 0
-        return True
+def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
+    bonus_items= ("🍀", " 7")
+    if all(symbol in bonus_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
+        bonus_wins["bonus"] += 1
+        if bonus_wins["bonus"] == 2:  #2 "🍀", " 7" combinations to win
+            return True
     return False
+
+def search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
+    bonus_items = ("🍀", " 7")
+    if all(symbol in bonus_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
+        bonus_wins["bonus"] += 1
+        if bonus_wins["bonus"] == 2:
+            return True
+    return False
+
 print("")
 print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂") #the welcome message
 print("")
@@ -204,13 +208,6 @@ while True: #Create loop
             credit += bet_win
             winnings[len(winnings) + 1] = bet_win
 
-        else:
-            print("You lost")
-            # from here, doing if-else condition to show the condition how to win the game.
-        outcome = [firstsq, secondsq, thirdsq, fourthsq]
-        if search_for_winning_combinations(outcome):
-            continue  # Continue to the next round without processing other win conditions
-
         # free spins
         if firstsq == fourthsq:
             free_spins = random.randint(1,5) # win bet 1 and 5 free spins
@@ -266,9 +263,6 @@ while True: #Create loop
                     level_wins[current_level] += 1
                 else:
                     print("You lost")
-                outcome = [firstsq, secondsq, thirdsq, fourthsq]
-                if search_for_winning_combinations(outcome):
-                    continue  # Continue to the next round without processing other win conditions
 
         #checking if the user beat the game
         if bet_win > 0 or freespinwin > 0:
@@ -279,22 +273,27 @@ while True: #Create loop
             print("You lost")
 
         # added new element
-        if check_for_jackpot(firstsq, secondsq, thirdsq, fourthsq):
+        if search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
+            bonus_money = 200  # bonus money
+            credit += bonus_money
+            print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!")
+
+        # added new element
+        if search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
             jackpot_money = 500  # jackpot money
             credit += jackpot_money
-            print(f"Congratulations! You've spun the jackpot combination twice and won £{jackpot_money}!")
+            print(f"Congratulations! You've spun the jackpot combination five times and won £{jackpot_money}!")
 
-        # cheacking if the current level met level 4 and £500
-        if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
-            current_level += 1
-            # updating the tree structure after a level has been met
-            player_tree = create_tree(current_level, level_hearts)
-            display_tree(player_tree)
-        # relaesing the diamond
-        elif current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
-            print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
+        # Check if the user beat the game
+        if current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
+            print("Congratulations! You've collected the diamond 💎 and you've beat the game!")
             break
 
+        # Check if the current level requirement is met
+        if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
+            current_level += 1
+            player_tree = create_tree(current_level, level_hearts)
+            display_tree(player_tree)
         round_info = {"Bet Amount: ": bet_amount, "Win Amount: ": bet_win}
         slothistory.enqueue(round_info)
 
