@@ -101,6 +101,7 @@ thirdsq = None #variable for third slot
 fourthsq = None #variable for fourth slot
 credits = initialcredits
 slothistory = Queue(5) #Create queue for storing last 5 rounds history
+# Define a function to calculate the winnings for a single outcome
 
 while True: #Create loop
     while credits > 0: #While user still have credits
