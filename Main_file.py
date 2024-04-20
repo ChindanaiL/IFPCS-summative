@@ -7,6 +7,7 @@ freespinwin = 0
 initialcredits = 100 #initial player's credits
 current_level = 1 #tracking the current level/account status
 credit = initialcredits
+winnings = {}
 
 wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
     1: 2,
@@ -201,6 +202,8 @@ while True: #Create loop
         if bet_win > 0:
             print("You won £", bet_win)
             credit += bet_win
+            winnings[len(winnings) + 1] = bet_win
+
         else:
             print("You lost")
             # from here, doing if-else condition to show the condition how to win the game.
@@ -259,6 +262,7 @@ while True: #Create loop
                 if freespinwin > 0:
                     print("You won £", freespinwin)
                     credit += freespinwin
+                    winnings[len(winnings) + 1] = freespinwin
                     level_wins[current_level] += 1
                 else:
                     print("You lost")
@@ -295,6 +299,10 @@ while True: #Create loop
         slothistory.enqueue(round_info)
 
     print("Thank you for playing.")
+    sorted_winnings = sorted(winnings.items(), key=lambda x: x[1], reverse=True)
+    print("\nWinnings sorted from highest to lowest:")
+    for round_num, win_amount in sorted_winnings:
+        print(f"Round {round_num}: £{win_amount}")
     print("Exiting the game...")
     time.sleep(1.5)
     break  # exit the game
