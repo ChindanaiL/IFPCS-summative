@@ -90,7 +90,17 @@ def check_for_jackpot(firstsq, secondsq, thirdsq, fourthsq):
         if jackpot_wins["jackpot"] == 2:  #2 jackpot combinations to win
             return True
     return False
-
+def search_for_winning_combinations(outcome):
+    global level_wins
+    if outcome.count(outcome[0]) == 3 and outcome[1] == outcome[2] and outcome[3] == outcome[0]:
+        if level_wins[current_level] == 1:
+            print("You've matched three symbols twice! You have 1 more left to win $200.")
+        elif level_wins[current_level] == 2:
+            print("Congratulations! You've matched three symbols twice and won $200!")
+            credit += 200
+            level_wins[current_level] = 0
+        return True
+    return False
 print("")
 print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂") #the welcome message
 print("")
@@ -187,12 +197,16 @@ while True: #Create loop
         elif firstsq == secondsq == '7':
             bet_win = bet_amount * 2
 
+
         if bet_win > 0:
             print("You won £", bet_win)
             credit += bet_win
         else:
             print("You lost")
             # from here, doing if-else condition to show the condition how to win the game.
+        outcome = [firstsq, secondsq, thirdsq, fourthsq]
+        if search_for_winning_combinations(outcome):
+            continue  # Continue to the next round without processing other win conditions
 
         # free spins
         if firstsq == fourthsq:
@@ -239,6 +253,7 @@ while True: #Create loop
                 elif firstsq == secondsq == '7':
                     spinwin = bet_amount * 2
 
+
                 freespinwin += spinwin # Accumulate the winnings from each free spin
 
                 if freespinwin > 0:
@@ -247,6 +262,9 @@ while True: #Create loop
                     level_wins[current_level] += 1
                 else:
                     print("You lost")
+                outcome = [firstsq, secondsq, thirdsq, fourthsq]
+                if search_for_winning_combinations(outcome):
+                    continue  # Continue to the next round without processing other win conditions
 
         #checking if the user beat the game
         if bet_win > 0 or freespinwin > 0:
