@@ -273,3 +273,4 @@ while True: #Create loop
     print("Thank you for playing.")
     print("Exiting the game...")
     time.sleep(1.5)
+    break  # exit the game
