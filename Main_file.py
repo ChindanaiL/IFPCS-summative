@@ -136,15 +136,10 @@ def choose_options():
     for theme in themes.keys():
         print(f"- {theme}")
     selected_theme = input("Choose a theme: ")
-
     if selected_theme not in themes:
         print("Invalid theme. Please choose from the available themes.")
         return choose_options()
-
     itemlist = themes[selected_theme]
-
-    # Add more customization options here...
-
     return itemlist
 
 print("")
