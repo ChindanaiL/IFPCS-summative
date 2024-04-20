@@ -1,6 +1,6 @@
 import random
 import time
-from collections import Counter, deque
+from collections import Counter #deque
 
 # Define themes, symbols, and betting options
 themes = {
@@ -170,173 +170,178 @@ fourthsq = None #variable for fourth slot
 
 while True: #Create loop
     #add detailed comment
-    itemlist = choose_options()
-    player_tree = create_tree(current_level, level_hearts)
-    display_tree(player_tree)
+    try:
+        itemlist = choose_options()
+        player_tree = create_tree(current_level, level_hearts)
+        display_tree(player_tree)
 
 
-    while credit > 0: #While user still have credits
-        print("\033[1m\nAccount Balance: £", credit, "\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
-        bet_amount_input = input("Please:"
-                                 "\n\tenter bet amount"
-                                 "\n\tor type '0' for free trial"
-                                 "\n\tor type 'history' to see your last 5 round history and all-time winrate, "
-                                 "\n\tor type 'quit' to exit the game."
-                                 "\n\tType here: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
-        if bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'
-            break #break the loop
+        while credit > 0: #While user still have credits
+            print("\033[1m\nAccount Balance: £\033[1m",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
+            bet_amount_input = input("Please:"
+                                     "\n\tenter bet amount"
+                                     "\n\tor type '0' for free trial"
+                                     "\n\tor type 'history' to see your last 5 round history and all-time winrate, "
+                                     "\n\tor type 'quit' to exit the game."
+                                     "\n\tType here: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
+            if bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'
+                break #break the loop
 
-        elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history'
-           if slothistory.get_history(): #checkk if history empty or not
-                displayhistory(slothistory.get_history()) #call function to print history and winrate
-                time.sleep(1.5)
-           else:
-               print("\nNo history available yet.")
-           continue #restart the loop
+            elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history'
+               if slothistory.get_history(): #checkk if history empty or not
+                    displayhistory(slothistory.get_history()) #call function to print history and winrate
+                    time.sleep(1.5)
+               else:
+                   print("\nNo history available yet.")
+               continue #restart the loop
 
-        if bet_amount_input.isdigit(): #if user input is in degit
-            bet_amount = int(bet_amount_input) #change user input into integer format
-            if bet_amount > credit: #check if bet amount is higher than user's credits
-                print("Not enough credit, please try again.") #show error message
-                continue #go back to start
+            if bet_amount_input.isdigit(): #if user input is in degit
+                bet_amount = int(bet_amount_input) #change user input into integer format
+                if bet_amount > credit: #check if bet amount is higher than user's credits
+                    print("Not enough credit, please try again.") #show error message
+                    continue #go back to start
 
-        elif bet_amount_input.lower() == '0': #if user input == 0
-            bet_amount = 0 #given bet amount = 0 and start free trial round
-        else:
-            print("Invalid input, please try again.")  # show error message  /  error handling
-            continue
+            elif bet_amount_input.lower() == '0': #if user input == 0
+                bet_amount = 0 #given bet amount = 0 and start free trial round
+            else:
+                print("Invalid input, please try again.")  # show error message  /  error handling
+                continue
 
-        credit -= bet_amount  # update credits balance after putting the bet
-        firstsq = random.choice(itemlist)  # random first symbol using the random function
-        secondsq = random.choice(itemlist)  # random second symbol using the random function
-        thirdsq = random.choice(itemlist)  # random third symbol using the random function
-        fourthsq = random.choice(itemlist)  # random fourth symbol using the random function
-        print("Stake accepted. Good luck.")
-        print("Spinning now...")
-        totalround+=1 #count totalround that have been played
-        time.sleep(1)  # delay the program for 1 second
-        # designing the way the slot will display
-        print()
+            credit -= bet_amount  # update credits balance after putting the bet
+            firstsq = random.choice(itemlist)  # random first symbol using the random function
+            secondsq = random.choice(itemlist)  # random second symbol using the random function
+            thirdsq = random.choice(itemlist)  # random third symbol using the random function
+            fourthsq = random.choice(itemlist)  # random fourth symbol using the random function
+            print("Stake accepted. Good luck.")
+            print("Spinning now...")
+            totalround+=1 #count totalround that have been played
+            time.sleep(1)  # delay the program for 1 second
+            # designing the way the slot will display
+            print()
 
-        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
-        print('------------------------------')
+            print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
+            print('------------------------------')
 
-        print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq, " | ")  # show the result after spin
-        print('------------------------------')
+            print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq, " | ")  # show the result after spin
+            print('------------------------------')
 
-        print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
-        print()
-        # adding different ways to win
-        bet_win = 0
-        if firstsq == secondsq == thirdsq == fourthsq:
-            bet_win = bet_amount * 5
-        elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
-            bet_win = bet_amount * 20
-        elif firstsq == thirdsq:
-            bet_win = bet_amount * 2
-        elif secondsq == fourthsq:
-            bet_win = bet_amount * 2
-        elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
-            bet_win = bet_amount * 3
-        elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
-            bet_win = bet_amount * 2
-
-
-        if bet_win > 0:
-            print("You won £", bet_win)
-            credit += bet_win
-            winnings[len(winnings) + 1] = bet_win
-            winround +=1 #round win count
-
-        # free spins
-        if firstsq == fourthsq:
-            free_spins = random.randint(1,5) # win bet 1 and 5 free spins
-            print(f'you won {free_spins} free spins')
-
-            freespinwin = 0 # initializing the freespinwin variable
-            for i in range(free_spins):
-                print('you have a free spin')
-                firstsq = random.choice(itemlist)
-                secondsq = random.choice(itemlist)
-                thirdsq = random.choice(itemlist)
-                fourthsq = random.choice(itemlist)
-
-                print("Spinning now...")
-                time.sleep(1)
-
-                print()
-
-                print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
-                      " | ", random.choice(itemlist), " | ")
-                print('------------------------------')
-
-                print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq,
-                      " | ")  # show the result after spin
-                print('------------------------------')
-
-                print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
-                      " | ", random.choice(itemlist), " | ")
-                print()
-
-                #conditions to win free spins
-                spinwin = 0
-                if firstsq == secondsq == thirdsq == fourthsq:
-                    spinwin = bet_amount * 5
-                elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
-                    spinwin = bet_amount * 20
-                elif firstsq == thirdsq:
-                    spinwin = bet_amount * 2
-                elif secondsq == fourthsq:
-                    spinwin = bet_amount * 2
-                elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (
-                        thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
-                    spinwin = bet_amount * 3
-                elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
-                    spinwin = bet_amount * 2
+            print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
+            print()
+            # adding different ways to win
+            bet_win = 0
+            if firstsq == secondsq == thirdsq == fourthsq:
+                bet_win = bet_amount * 5
+            elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
+                bet_win = bet_amount * 20
+            elif firstsq == thirdsq:
+                bet_win = bet_amount * 2
+            elif secondsq == fourthsq:
+                bet_win = bet_amount * 2
+            elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
+                bet_win = bet_amount * 3
+            elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
+                bet_win = bet_amount * 2
 
 
-                freespinwin += spinwin # Accumulate the winnings from each free spin
+            if bet_win > 0:
+                print("You won £", bet_win)
+                credit += bet_win
+                winnings[len(winnings) + 1] = bet_win
+                winround +=1 #round win count
 
-                if freespinwin > 0:
-                    print("You won £", freespinwin)
-                    credit += freespinwin
-                    winnings[len(winnings) + 1] = freespinwin
-                    level_wins[current_level] += 1
-                else:
-                    print("You lost")
+            # free spins
+            if firstsq == fourthsq:
+                free_spins = random.randint(1,5) # win bet 1 and 5 free spins
+                print(f'you won {free_spins} free spins')
 
-        #checking if the user beat the game
-        if bet_win > 0 or freespinwin > 0:
-            credit += bet_win
-            level_wins[current_level] += 1
-            unlock_hearts(current_level)
-        else:
-            print("You lost")
+                freespinwin = 0 # initializing the freespinwin variable
+                for i in range(free_spins):
+                    print('you have a free spin')
+                    firstsq = random.choice(itemlist)
+                    secondsq = random.choice(itemlist)
+                    thirdsq = random.choice(itemlist)
+                    fourthsq = random.choice(itemlist)
 
-        # added new element
-        if search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
-            bonus_money = 200  # bonus money
-            credit += bonus_money
-            print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!")
+                    print("Spinning now...")
+                    time.sleep(1)
 
-        # added new element
-        if search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
-            jackpot_money = 500  # jackpot money
-            credit += jackpot_money
-            print(f"Congratulations! You've spun the jackpot combination five times and won £{jackpot_money}!")
+                    print()
 
-        # Check if the user beat the game
-        if current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
-            print("Congratulations! You've collected the diamond 💎 and you've beat the game!")
-            break
+                    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+                          " | ", random.choice(itemlist), " | ")
+                    print('------------------------------')
 
-        # Check if the current level requirement is met
-        if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
-            current_level += 1
-            player_tree = create_tree(current_level, level_hearts)
-            display_tree(player_tree)
+                    print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq,
+                          " | ")  # show the result after spin
+                    print('------------------------------')
 
-        addspinhistory(bet_amount,bet_win, [firstsq,secondsq,thirdsq,fourthsq])
+                    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+                          " | ", random.choice(itemlist), " | ")
+                    print()
+
+                    #conditions to win free spins
+                    spinwin = 0
+                    if firstsq == secondsq == thirdsq == fourthsq:
+                        spinwin = bet_amount * 5
+                    elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
+                        spinwin = bet_amount * 20
+                    elif firstsq == thirdsq:
+                        spinwin = bet_amount * 2
+                    elif secondsq == fourthsq:
+                        spinwin = bet_amount * 2
+                    elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (
+                            thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
+                        spinwin = bet_amount * 3
+                    elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
+                        spinwin = bet_amount * 2
+
+
+                    freespinwin += spinwin # Accumulate the winnings from each free spin
+
+                    if freespinwin > 0:
+                        print("You won £", freespinwin)
+                        credit += freespinwin
+                        winnings[len(winnings) + 1] = freespinwin
+                        level_wins[current_level] += 1
+                    else:
+                        print("You lost")
+
+            #checking if the user beat the game
+            if bet_win > 0 or freespinwin > 0:
+                credit += bet_win
+                level_wins[current_level] += 1
+                unlock_hearts(current_level)
+            else:
+                print("You lost")
+
+            # added new element
+            if search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
+                bonus_money = 200  # bonus money
+                credit += bonus_money
+                print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!")
+
+            # added new element
+            if search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
+                jackpot_money = 500  # jackpot money
+                credit += jackpot_money
+                print(f"Congratulations! You've spun the jackpot combination five times and won £{jackpot_money}!")
+
+            # Check if the user beat the game
+            if current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
+                print("Congratulations! You've collected the diamond 💎 and you've beat the game!")
+                break
+
+            # Check if the current level requirement is met
+            if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
+                current_level += 1
+                player_tree = create_tree(current_level, level_hearts)
+                display_tree(player_tree)
+
+            addspinhistory(bet_amount,bet_win, [firstsq,secondsq,thirdsq,fourthsq])
+
+    except Exception as e:
+        print("Unfortunately, you've prompted an error:", str(e))
+        print("Please try again.")
 
 
     print("Thank you for playing.")
