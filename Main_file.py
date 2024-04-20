@@ -290,6 +290,7 @@ while True: #Create loop
         elif current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
             print("Congratulations! You've collected diamond 💎 and you've beat the game! ")
             break
+
         round_info = {"Bet Amount: ": bet_amount, "Win Amount: ": bet_win}
         slothistory.enqueue(round_info)
 
