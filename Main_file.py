@@ -1,6 +1,6 @@
 import random
 import time
-from collections import Counter #, deque
+from collections import Counter #, deque idk
 
 itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
 freespinwin = 0
