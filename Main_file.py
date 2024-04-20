@@ -1,71 +1,75 @@
-import random
-import time
-from collections import Counter #deque
+import random #Importing library to generate random numbers; implementing the game of chance aspect of the code
+import time #Importing library to implement a set pace for the game
+from collections import Counter #Importing collections.Counter library for Counter data structure
 
-# Define themes, symbols, and betting options
+#Define themes, symbols, and betting options. Implementing through an immutable array
 themes = {
     "Classic": [" 7","🍊","🍒","🍀"],
     "Fruit": ["🍏","🍋","🍇","🍉"],
     "Animal": ["🐶","🐱","🐭","🐹"]
 }
-#itemlist = [" 7","🍊","🍒","🍀"] #list of item in our slot machine, able to change it later
-freespinwin = 0
-initialcredits = 100 #initial player's credits
-current_level = 1 #tracking the current level/account status
-winround = 0
-totalround = 0
-credit = initialcredits
-winnings = {}
-bonus_wins = Counter()
-level_wins = Counter()
-jackpot_wins = Counter()
+
+#Initializing and tracking variables
+
+freespinwin = 0 #Winnings from free spins
+initialcredits = 100 #Player's credits
+current_level = 1 #Player's current level/account status
+winround = 0 #Number of rounds won
+totalround = 0 #Number of rounds played
+
+credit = initialcredits #Current value of credits availiable to gamble
+winnings = {} #Creating an empty dictionary in order to store wins within each round
+level_wins = Counter() #Utilizing Counter to keep track of wins per level
+bonus_wins = Counter() #Utilizing Counter to keep track of bonus wins
+jackpot_wins = Counter() #Utilizing Counter to keep track of jackpot wins
 
 
-wins_to_unlock_hearts = {  #defining the win requirments needed to unlock hearts for each level
-    1: 2,
-    2: 3,
-    3: 4,
-    4: 5,
+wins_to_unlock_hearts = {  #Defining the win requirments needed to unlock hearts for each level
+    1: 2,   #Level 1 = 2 wins
+    2: 3,   #Level 2 = 3 aditional wins
+    3: 4,   #Level 3 = 4 aditional wins
+    4: 5,   #Level 4 = 5 aditional wins
 }
 
-level_hearts = { #add my detailed comment
+level_hearts = { #add my detailed comment #FIX AND ADD HEARTS
     1: None,
     2: None,
     3: None,
     4: None
 }
 
-class Queue: #Class queue
-    def __init__(self,size):
-        self.size = size
-        self.historylist=[]
-    def enqueue(self, item): #function to keep update the history
-        if len(self.historylist) >=self.size: #if number of data in the list more than 5
-            self.historylist.pop(0) #delete oldest data
-        self.historylist.append(item) #add latest data
-    def get_history(self): #function print data
-        return self.historylist #display data in list
+class Queue: #Creating a queue data structure (class queue)
+    def __init__(self,size): #Establishing requirements for queue
+        self.size = size     #Establishing the max size of the queue
+        self.historylist=[]  #Creating a list to store history
+
+    def enqueue(self, item):  #Function to keep the history updated
+        if len(self.historylist) >=self.size: #If number of data in the list more than 5
+            self.historylist.pop(0)           #Delete oldest data
+        self.historylist.append(item)         #Add latest data
+    def get_history(self):       #Function print data; presenting history
+        return self.historylist  #Display data in list
 
 slothistory = Queue(5) #Create queue for storing last 5 rounds history
 
-def addspinhistory(bet_amount, win_amount, symbols): #function to add spindata into the list
+def addspinhistory(bet_amount, win_amount, symbols): #Function to add spin data into the list
     spindata = {
-        "Bet amount": bet_amount,
-        "Win amount": win_amount,
-        "Symbols": symbols
+        "Bet amount": bet_amount,  #Store bet data
+        "Win amount": win_amount,  #Store win amount
+        "Symbols": symbols         #Store generated symbols
     }
-    slothistory.enqueue(spindata)
+    slothistory.enqueue(spindata) #Updating history
 
-def calwinrate(history): #function to calculate winrate
-    if totalround !=0: #if totalround have data
-        winrate = (winround/totalround) * 100 #find all time winrate
+def calwinrate(history): #Function to calculate winrate
+    if totalround !=0:                        #Check if totalround have data
+        winrate = (winround/totalround) * 100 #Calculating winrate
     else:
-        0
-    return winround, winrate
+        winrate = 0                           #Error handling, for if no rounds have been played
+    return winround, winrate                  #Return calculations
 
-def displayhistory(history): #function to show history
-    totalwin, winrate= calwinrate(history)
-    print("\nRound history and Win rate: ")
+def displayhistory(history):                    #Function to show history of rounds and win rate
+    totalwin, winrate= calwinrate(history)      #Calculating totalwin and winrate
+    print("\nRound history and Win rate: ")     #Print statements / visual formating
     print("Total Round Played: ", totalround)
     print("Total Wins: ", totalwin)
     print(f"All-Times Win Rates: {winrate:.2f} %")
@@ -74,12 +78,12 @@ def displayhistory(history): #function to show history
     print("----------------------------------------------")
     time.sleep(1.5)
 
-    print("\nLast 5 Rounds History: ")  # print text
-    i = 1
-    history = slothistory.get_history()
-    for round_info in history:  # loop print history
-        print(f"{i}. {round_info}")
-        i += 1
+    print("\nLast 5 Rounds History: ")     #Print text / visual formating
+    i = 1                                  #Initializimg roundnumber Counter
+    history = slothistory.get_history()    #Pulling history from previous 5 round
+    for round_info in history:             #Loop over print history
+        print(f"{i}. {round_info}")        #Print round number information
+        i += 1                             #Update variable value
 
 
 #add my detailed comment
