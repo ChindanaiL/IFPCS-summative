@@ -84,6 +84,8 @@ def displayhistory(history):                    #Function to show history of rou
     for round_info in history:             #Loop over print history
         print(f"{i}. {round_info}")        #Print round number information
         i += 1                             #Update variable value
+        if round_info['Bet amount'] ==0: #add to noted that it's trial round
+            print("--trial round--")
 
 
 #add my detailed comment
@@ -135,36 +137,70 @@ def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
             return True
     return False
 # Function to allow players to choose theme, symbols, and betting options
+
 def choose_options():
-    print("Available Themes:")
-    for theme in themes.keys():
-        print(f"- {theme}")
-    selected_theme = input("Choose a theme: ")
-    if selected_theme not in themes:
-        print("Invalid theme. Please choose from the available themes.")
-        return choose_options()
-    itemlist = themes[selected_theme]
-    return itemlist
+    print("Welcome to the Slot Machine. Please select a theme:"
+          "\n1 -- Classic,", themes["Classic"],
+          "\n2 -- Fruit", themes["Fruit"],
+          "\n3 -- Animal", themes["Animal"])
+    selectedtheme = input("Please choose a number between 1 and 3: ") #asking for choosing the theme
+    if selectedtheme not in ['1', '2', '3']: #if user put something not from 1,2, 3
+        print("Invalid selection, please try again.")
+        time.sleep(1)
+        print("")
+        return choose_options() #go back and ask again
+    if selectedtheme =='1': #if typing '1'
+        itemlist = themes["Classic"] #select itemlist classic
+        winningcondition = (
+        "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+        "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20"
+        "\n\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\tWinning amount:\tBet amount *5"
+        "\n\t\t🍊\t\t\t\t\t🍊\t\t\t\t   🍒/🍊\t\t\t  ______\t\tWinning amount:\tBet amount *3"
+        "\n\t\t7\t\t\t\t\t7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+        "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+        "\n\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tBet amount *2"
+        "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tFree spin")
 
-print("")
-print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂") #the welcome message
-print("")
-print("        \033[1mTo beat the game you must complete two main requirements and collect the diamond --> 💎\033[1m") #using ANSI escape sequences to bold text
-print("")
-#print("itemlist: ", itemlist)
-print("\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
-      "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20"
-      "\n\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\tWinning amount:\tBet amount *5"
-      "\n\t\t🍊\t\t\t\t\t🍊\t\t\t\t   7/🍊\t\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-      "\n\t\t7\t\t\t\t\t7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-      "\n\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tBet amount *2"
-      "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tFree spin") #Rule and condition to win the game, able to change it later
+    elif selectedtheme =='2': #if typing '2'
+        itemlist = themes["Fruit"] #select itemlist fruit
+        winningcondition = (
+            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\tWinning amount:\tBet amount *20"
+            "\n\t  🍏/🍇/🍋\t\t\t  🍏/🍇/🍋\t\t\t  🍏/🍇/🍋\t\t\t  🍏/🍇/🍋\t\tWinning amount:\tBet amount *5"
+            "\n\t\t🍇\t\t\t\t\t🍇\t\t\t\t   🍉/🍇\t\t\t  ______\t\tWinning amount:\tBet amount *3"
+            "\n\t\t🍏\t\t\t\t\t🍏\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t🍏/🍇/🍉/🍋\t\t  ______\t\t\t🍏/🍇/🍉/🍋\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t  ______\t\t\t🍏/🍇/🍉/🍋\t\t  ______\t\t\t🍏/🍇/🍉/🍋\tWinning amount:\tBet amount *2"
+            "\n\t🍏/🍇/🍉/🍋\t\t  ______\t\t\t  ______\t\t\t🍏/🍇/🍉/🍋\tWinning amount:\tFree spin")
+
+    elif selectedtheme =='3': #if typing '3'
+        itemlist = themes["Animal"] #select itemlist animal
+        winningcondition = (
+            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\tWinning amount:\tBet amount *20"
+            "\n\t  🐶/🐭/🐹\t\t\t  🐶/🐭/🐹\t\t\t  🐶/🐭/🐹\t\t\t  🐶/🐭/🐹\t\tWinning amount:\tBet amount *5"
+            "\n\t\t🐭\t\t\t\t\t🐭\t\t\t\t   🐱/🐭\t\t\t  ______\t\tWinning amount:\tBet amount *3"
+            "\n\t\t🐶\t\t\t\t\t🐶\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t🐶/🐭/🐱/🐹\t\t  ______\t\t\t🐶/🐭/🐱/🐹\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t  ______\t\t\t🐶/🐭/🐱/🐹\t\t  ______\t\t\t🐶/🐭/🐱/🐹\tWinning amount:\tBet amount *2"
+            "\n\t🐶/🐭/🐱/🐹\t\t  ______\t\t\t  ______\t\t\t🐶/🐭/🐱/🐹\tWinning amount:\tFree spin")
 
 
-print("\n2. Pass all four levels of status: \n\t2 wins \t\tlevel 1\t\t🖤 \n\t3 wins \t\tlevel 2\t\t🖤🖤 \n\t4 wins \t\tlevel 3\t\t🖤🖤🖤 \n\t5 wins \t\tlevel 4\t\t🖤🖤🖤🖤")
-print("")
-print("LET THE GAMES BEGIN...")
+    print("")
+    print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂")  # the welcome message
+    print("")
+    print(
+        "        \033[1mTo beat the game you must complete two main requirements and collect the diamond --> 💎\033[1m")  # using ANSI escape sequences to bold text
+    time.sleep(1)
+    print("")
+    print("itemlist: ", itemlist)
+    print(winningcondition)
+    time.sleep(2)
+    print(
+        "\n2. Pass all four levels of status: \n\t2 wins \t\tlevel 1\t\t🖤 \n\t3 wins \t\tlevel 2\t\t🖤🖤 \n\t4 wins \t\tlevel 3\t\t🖤🖤🖤 \n\t5 wins \t\tlevel 4\t\t🖤🖤🖤🖤")
+    print("")
+    print("LET THE GAMES BEGIN...")
+    return selectedtheme, itemlist
 
 
 firstsq = None #variable for first slot
@@ -175,20 +211,26 @@ fourthsq = None #variable for fourth slot
 while True: #Create loop
     #add detailed comment
     try:
-        itemlist = choose_options()
+        selectedtheme,itemlist = choose_options()
         player_tree = create_tree(current_level, level_hearts)
         display_tree(player_tree)
 
 
         while credit > 0: #While user still have credits
             print("\033[1m\nAccount Balance: £\033[1m",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
+            print(itemlist)
+
             bet_amount_input = input("Please:"
                                      "\n\tenter bet amount"
-                                     "\n\tor type '0' for free trial"
+                                     "\n\tor type 'trial' for free trial"
                                      "\n\tor type 'history' to see your last 5 round history and all-time winrate, "
                                      "\n\tor type 'quit' to exit the game."
+                                     "\n\tor type 'theme to choose a different themes"
                                      "\n\tType here: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
-            if bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'
+            if bet_amount_input.lower() == "trial": #change user input to lowercase and if input 'trial'
+                bet_amount = 0 #given bet amount =0 and start free trial round
+
+            elif bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'
                 break #break the loop
 
             elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history'
@@ -199,17 +241,24 @@ while True: #Create loop
                    print("\nNo history available yet.")
                continue #restart the loop
 
-            if bet_amount_input.isdigit(): #if user input is in degit
+            elif bet_amount_input.isdigit(): #if user input is in degit
                 bet_amount = int(bet_amount_input) #change user input into integer format
+                if bet_amount ==0: #check if bet amount is equal to '0'
+                    print("invalid input, Please enter a positive integer for the bet amount.")
+                    continue
                 if bet_amount > credit: #check if bet amount is higher than user's credits
                     print("Not enough credit, please try again.") #show error message
                     continue #go back to start
 
-            elif bet_amount_input.lower() == '0': #if user input == 0
-                bet_amount = 0 #given bet amount = 0 and start free trial round
+            elif bet_amount_input.lower() == "theme": #if user input is theme
+                selectedtheme, itemlist = choose_options() #choose new theme and update item
+                continue
             else:
                 print("Invalid input, please try again.")  # show error message  /  error handling
                 continue
+
+            if bet_amount >0:
+                totalround+=1 #count totalround that have been played
 
             credit -= bet_amount  # update credits balance after putting the bet
             firstsq = random.choice(itemlist)  # random first symbol using the random function
@@ -218,7 +267,6 @@ while True: #Create loop
             fourthsq = random.choice(itemlist)  # random fourth symbol using the random function
             print("Stake accepted. Good luck.")
             print("Spinning now...")
-            totalround+=1 #count totalround that have been played
             time.sleep(1)  # delay the program for 1 second
             # designing the way the slot will display
             print()
@@ -233,7 +281,7 @@ while True: #Create loop
             print()
             # adding different ways to win
             bet_win = 0
-            if firstsq == secondsq == thirdsq == fourthsq:
+            if firstsq == secondsq == thirdsq == fourthsq and [firstsq,secondsq,thirdsq,fourthsq] != ['🍒', '🍉', '🐱']:
                 bet_win = bet_amount * 5
             elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
                 bet_win = bet_amount * 20
