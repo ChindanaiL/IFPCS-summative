@@ -4,9 +4,11 @@ from collections import Counter #Importing collections.Counter library for Count
 
 #Define themes, symbols, and betting options. Implementing through an immutable array
 themes = {
-    "Classic": [" 7","🍊","🍒","🍀"],
-    "Fruit": [" 7","🍋","🍇","🍉"],
-    "Animal": [" 7","🐱","🐭","🐹"]
+    "Classic": (" 7", "🍊", "🍒", "🍀"),
+    "Fruit": (" 7", "🍋", "🍇", "🍉"),
+    "Animal": (" 7", "🐱", "🐭", "🐹"),
+    "Aquarium": ("7", "🐠", "🐡", "🦈"),
+    "Vehicles": ("7", "🚗", "🏍️", "🏎️")
 }
 
 #Initializing and tracking variables
@@ -16,6 +18,8 @@ initialcredits = 100 #Player's credits
 current_level = 1 #Player's current level/account status
 winround = 0 #Number of rounds won
 totalround = 0 #Number of rounds played
+itemlist = None
+selectedtheme = None
 
 credit = initialcredits #Current value of credits availiable to gamble
 winnings = {} #Creating an empty dictionary in order to store wins within each round
@@ -137,6 +141,26 @@ def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
             return True
     return False
 
+class MysteryTheme(TreeNode): #class for mysterytheme
+    def __init__(self, level, heart, theme):
+        super().__init__(level, heart)
+        self.theme = theme
+
+def create_tree(current_level, level_hearts):
+    root = TreeNode(1, level_hearts.get(1,"🖤"))
+    if current_level >= 2:
+        root.left = TreeNode(2, level_hearts.get(2, "🖤🖤"))  # Left child for level 2
+        if current_level == 2:
+            print("You've reached level 2 and unlocked the 'Aquarium' theme!")
+            time.sleep(1)
+    if current_level >= 3:
+        root.right = TreeNode(3, level_hearts.get(3, "🖤🖤🖤"))  # Right child for level 3
+        if current_level == 3:
+            print("You've reached level 3 and unlocked the 'Vehicles' theme!")
+            time.sleep(1)
+    if current_level == 4:
+        root.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))  # Left grandchild for level 4
+    return root
 
 # Function to allow players to choose theme, symbols, and betting options
 def choose_options():
@@ -144,12 +168,32 @@ def choose_options():
           "\n1 -- Classic,", themes["Classic"],
           "\n2 -- Fruit", themes["Fruit"],
           "\n3 -- Animal", themes["Animal"])
-    selectedtheme = input("Please choose a number between 1 and 3: ") #asking for choosing the theme
-    if selectedtheme not in ['1', '2', '3']: #if user put something not from 1,2, 3
-        print("Invalid selection, please try again.")
-        time.sleep(1)
-        print("")
-        return choose_options() #go back and ask again
+    if current_level >= 2: #if current level more than 2
+        print("4 -- Aquarium", themes["Aquarium"]) #show mystery theme
+    if current_level >= 3: #if current level more than 3
+        print("5 -- Vehicles", themes["Vehicles"]) #show mystery theme
+    if current_level == 1:
+        selectedtheme = input("Please choose a number between 1 and 3: ") #asking for choosing the theme
+        if selectedtheme not in ['1', '2', '3']: #if user put something not from 1,2, 3
+            print("Invalid selection, please try again.")
+            time.sleep(1)
+            print("")
+            return choose_options() #go back and ask again
+    if current_level == 2:
+        selectedtheme = input("Please choose a number between 1 and 4: ") #asking for choosing the theme
+        if selectedtheme not in ['1', '2', '3','4']: #if user put something not from 1,2, 3
+            print("Invalid selection, please try again.")
+            time.sleep(1)
+            print("")
+            return choose_options() #go back and ask again
+    if current_level >= 3:
+        selectedtheme = input("Please choose a number between 1 and 5: ") #asking for choosing the theme
+        if selectedtheme not in ['1', '2', '3','4','5']: #if user put something not from 1,2, 3
+            print("Invalid selection, please try again.")
+            time.sleep(1)
+            print("")
+            return choose_options() #go back and ask again
+
     if selectedtheme =='1': #if typing '1'
         itemlist = themes["Classic"] #select itemlist classic
         winningcondition = (
@@ -186,6 +230,29 @@ def choose_options():
             "\n\t  ______\t\t\t 7/🐭/🐱/🐹\t\t  ______\t\t\t 7/🐭/🐱/🐹\tWinning amount:\tBet amount *2"
             "\n\t 7/🐭/🐱/🐹\t\t  ______\t\t\t  ______\t\t\t 7/🐭/🐱/🐹\tWinning amount:\tFree spin")
 
+    elif selectedtheme == '4' and current_level >= 2:  # if typing '4'
+        itemlist = themes["Aquarium"]  # select itemlist Aquarium
+        winningcondition = (
+            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\tWinning amount:\tBet amount *20"
+            "\n\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\tWinning amount:\tBet amount *5"
+            "\n\t\t🐠\t\t\t\t\t🐠\t\t\t\t   🦈/🐠\t\t\t  ______\t\tWinning amount:\tBet amount *3"
+            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tBet amount *2"
+            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tFree spin")
+
+    elif selectedtheme == '5' and current_level >= 3:  # if typing '5'
+        itemlist = themes["Vehicles"]  # select itemlist Vehicles
+        winningcondition = (
+            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\tWinning amount:\tBet amount *20"
+            "\n\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\tWinning amount:\tBet amount *5"
+            "\n\t\t🚗\t\t\t\t\t🚗\t\t\t\t   🏎/🚗\t\t\t  ______\t\tWinning amount:\tBet amount *3"
+            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tBet amount *2"
+            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tFree spin")
 
     print("")
     print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂")  # the welcome message
@@ -212,10 +279,9 @@ fourthsq = None #variable for fourth slot
 while True: #Create loop
     #add detailed comment
     try:
-        selectedtheme,itemlist = choose_options()
+        selectedtheme, itemlist = choose_options()
         player_tree = create_tree(current_level, level_hearts)
         display_tree(player_tree)
-
 
         while credit > 0: #While user still have credits
             print("\033[1m\nAccount Balance:",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
@@ -285,15 +351,15 @@ while True: #Create loop
             print()
             # adding different ways to win
             bet_win = 0
-            if firstsq == secondsq == thirdsq == fourthsq and [firstsq,secondsq,thirdsq,fourthsq] != ['🍒', '🍉', '🐱']:
+            if firstsq == secondsq == thirdsq == fourthsq and [firstsq,secondsq,thirdsq,fourthsq] != ['🍒', '🍉', '🐱','🦈','🏎']:
                 bet_win = bet_amount * 5
-            elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱']:
+            elif firstsq == secondsq == thirdsq == fourthsq in ['🍒', '🍉', '🐱','🦈','🏎']:
                 bet_win = bet_amount * 20
             elif firstsq == thirdsq:
                 bet_win = bet_amount * 2
             elif secondsq == fourthsq:
                 bet_win = bet_amount * 2
-            elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
+            elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭' or firstsq == secondsq == '🐠' or firstsq == secondsq == '🚗') and (thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱','🐠','🦈','🏎','🚗']):
                 bet_win = bet_amount * 3
             elif (firstsq == secondsq) and (firstsq in ['7', ' 7', ' 7']):
                 bet_win = bet_amount * 2
