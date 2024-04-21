@@ -5,8 +5,8 @@ from collections import Counter #Importing collections.Counter library for Count
 #Define themes, symbols, and betting options. Implementing through an immutable array
 themes = {
     "Classic": [" 7","🍊","🍒","🍀"],
-    "Fruit": ["🍏","🍋","🍇","🍉"],
-    "Animal": ["🐶","🐱","🐭","🐹"]
+    "Fruit": [" 7","🍋","🍇","🍉"],
+    "Animal": [" 7","🐱","🐭","🐹"]
 }
 
 #Initializing and tracking variables
@@ -84,35 +84,34 @@ def displayhistory(history):                    #Function to show history of rou
     for round_info in history:             #Loop over print history
         print(f"{i}. {round_info}")        #Print round number information
         i += 1                             #Update variable value
-        if round_info['Bet amount'] ==0: #add to noted that it's trial round
+        if round_info['Bet amount'] ==0:   #Adding to noted that it's trial round
             print("--trial round--")
 
 
-#add my detailed comment
-class TreeNode:
-    def __init__(self, level, heart):
-        self.level = level
-        self.heart = heart
-        self.left = None
-        self.right = None
+#Implementing Tree Data Structure
+class TreeNode: #Creating class to hold tree node
+    def __init__(self, level, heart): #Composing TreeNode class
+        self.level = level            #Setting level of node
+        self.heart = heart            #Setting heart symbol of node
+        self.left = None              #Setting left child of node
+        self.right = None             #Setting right child of node
 
-# add my detailed comment
-def create_tree(current_level, level_hearts):
-    root = TreeNode(1, level_hearts.get(1, "🖤"))
-    if current_level >= 2:
-        root.left = TreeNode(2, level_hearts.get(2, "🖤🖤"))
+def create_tree(current_level, level_hearts):                                 #Creating a function to configure a tree based on the user's current level and unlocking hearts
+    root = TreeNode(1, level_hearts.get(1, "🖤"))                       #Establishing the root node with level 1 and assigned heart
+    if current_level >= 2:                                                    #Assigning notes based on user level and calling for the corriponding hearts
+        root.left = TreeNode(2, level_hearts.get(2, "🖤🖤"))            #Left child
     if current_level >= 3:
-        root.right = TreeNode(3, level_hearts.get(3, "🖤🖤🖤"))
+        root.right = TreeNode(3, level_hearts.get(3, "🖤🖤🖤"))         #Right child
     if current_level == 4:
-        root.left.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))
+        root.left.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))   #Left grandchild
     return root
 
 # add my detailed comment
-def display_tree(node):
-    if node is not None:
-        display_tree(node.left)
-        print(f"Level {node.level}: {node.heart}")
-        display_tree(node.right)
+def display_tree(node):                             #Displaying tree node
+    if node is not None:                            #Checking the node isn't empty
+        display_tree(node.left)                     #Recursivly having the left subtree displayed (------------------------------change-----------------------)
+        print(f"Level {node.level}: {node.heart}")  #Displaying the hearts of the current node
+        display_tree(node.right)                    #Displaying text with same purpose of display_tree(node.left)
 
 # add my detailed comment
 def unlock_hearts(current_level):
@@ -166,24 +165,24 @@ def choose_options():
         winningcondition = (
             "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
             "\n\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\tWinning amount:\tBet amount *20"
-            "\n\t  🍏/🍇/🍋\t\t\t  🍏/🍇/🍋\t\t\t  🍏/🍇/🍋\t\t\t  🍏/🍇/🍋\t\tWinning amount:\tBet amount *5"
+            "\n\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\tWinning amount:\tBet amount *5"
             "\n\t\t🍇\t\t\t\t\t🍇\t\t\t\t   🍉/🍇\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t\t🍏\t\t\t\t\t🍏\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t🍏/🍇/🍉/🍋\t\t  ______\t\t\t🍏/🍇/🍉/🍋\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t  ______\t\t\t🍏/🍇/🍉/🍋\t\t  ______\t\t\t🍏/🍇/🍉/🍋\tWinning amount:\tBet amount *2"
-            "\n\t🍏/🍇/🍉/🍋\t\t  ______\t\t\t  ______\t\t\t🍏/🍇/🍉/🍋\tWinning amount:\tFree spin")
+            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t 7/🍇/🍉/🍋\t\t  ______\t\t\t 7/🍇/🍉/🍋\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t  ______\t\t\t 7/🍇/🍉/🍋\t\t  ______\t\t\t 7/🍇/🍉/🍋\tWinning amount:\tBet amount *2"
+            "\n\t 7/🍇/🍉/🍋\t\t  ______\t\t\t  ______\t\t\t 7/🍇/🍉/🍋\tWinning amount:\tFree spin")
 
     elif selectedtheme =='3': #if typing '3'
         itemlist = themes["Animal"] #select itemlist animal
         winningcondition = (
             "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
             "\n\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\tWinning amount:\tBet amount *20"
-            "\n\t  🐶/🐭/🐹\t\t\t  🐶/🐭/🐹\t\t\t  🐶/🐭/🐹\t\t\t  🐶/🐭/🐹\t\tWinning amount:\tBet amount *5"
+            "\n\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\tWinning amount:\tBet amount *5"
             "\n\t\t🐭\t\t\t\t\t🐭\t\t\t\t   🐱/🐭\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t\t🐶\t\t\t\t\t🐶\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t🐶/🐭/🐱/🐹\t\t  ______\t\t\t🐶/🐭/🐱/🐹\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t  ______\t\t\t🐶/🐭/🐱/🐹\t\t  ______\t\t\t🐶/🐭/🐱/🐹\tWinning amount:\tBet amount *2"
-            "\n\t🐶/🐭/🐱/🐹\t\t  ______\t\t\t  ______\t\t\t🐶/🐭/🐱/🐹\tWinning amount:\tFree spin")
+            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t 7/🐭/🐱/🐹\t\t  ______\t\t\t 7/🐭/🐱/🐹\t\t  ______\t\tWinning amount:\tBet amount *2"
+            "\n\t  ______\t\t\t 7/🐭/🐱/🐹\t\t  ______\t\t\t 7/🐭/🐱/🐹\tWinning amount:\tBet amount *2"
+            "\n\t 7/🐭/🐱/🐹\t\t  ______\t\t\t  ______\t\t\t 7/🐭/🐱/🐹\tWinning amount:\tFree spin")
 
 
     print("")
@@ -217,16 +216,19 @@ while True: #Create loop
 
 
         while credit > 0: #While user still have credits
-            print("\033[1m\nAccount Balance: £\033[1m",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
-            print(itemlist)
+            print("\033[1m\nAccount Balance:",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
 
-            bet_amount_input = input("Please:"
-                                     "\n\tenter bet amount"
-                                     "\n\tor type 'trial' for free trial"
-                                     "\n\tor type 'history' to see your last 5 round history and all-time winrate, "
-                                     "\n\tor type 'quit' to exit the game."
-                                     "\n\tor type 'theme to choose a different themes"
-                                     "\n\tType here: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
+            try:
+                bet_amount_input = input("\n\tOptions:"
+                                     "\n\tType 'trial' for free trial"
+                                     "\n\tType 'history' to see your last 5 round history and all-time winrate, "
+                                     "\n\tType 'quit' to exit the game."
+                                     "\n\tType 'theme to choose a different themes"
+                                     "\n\n\tEnter Bet Amount or Select Listed Option: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'
+            except KeyboardInterrupt:
+                print("\nYou've interrupted the program. Please start over.") #For when the user interupts the program by terminating the terminal mid response
+                break
+
             if bet_amount_input.lower() == "trial": #change user input to lowercase and if input 'trial'
                 bet_amount = 0 #given bet amount =0 and start free trial round
 
@@ -291,7 +293,7 @@ while True: #Create loop
                 bet_win = bet_amount * 2
             elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
                 bet_win = bet_amount * 3
-            elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
+            elif (firstsq == secondsq) and (firstsq in ['7', ' 7', ' 7']):
                 bet_win = bet_amount * 2
 
 
@@ -344,7 +346,7 @@ while True: #Create loop
                     elif (firstsq == secondsq == '🍊' or firstsq == secondsq == "🍇" or firstsq == secondsq == '🐭') and (
                             thirdsq in ['🍊', '🍇', '🐭', '🍒', '🍉', '🐱']):
                         spinwin = bet_amount * 3
-                    elif (firstsq == secondsq) and (firstsq in ['7', '🍏', '🐶']):
+                    elif (firstsq == secondsq) and (firstsq in ['7', ' 7', ' 7']):
                         spinwin = bet_amount * 2
 
 
