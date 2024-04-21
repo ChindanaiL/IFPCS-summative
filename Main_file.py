@@ -45,9 +45,9 @@ class Queue: #Creating a queue data structure (class queue)
 
     def enqueue(self, item):  #Function to keep the history updated
         if len(self.historylist) >=self.size: #If number of data in the list more than 5
-            self.historylist.pop(0)           #Delete oldest data
-        self.historylist.append(item)         #Add latest data
-    def get_history(self):       #Function print data; presenting history
+            self.historylist.pop(0)  #Delete oldest data
+        self.historylist.append(item)   #Add latest data
+    def get_history(self):  #Function print data; presenting history
         return self.historylist  #Display data in list
 
 slothistory = Queue(5) #Create queue for storing last 5 rounds history
@@ -61,11 +61,11 @@ def addspinhistory(bet_amount, win_amount, symbols): #Function to add spin data 
     slothistory.enqueue(spindata) #Updating history
 
 def calwinrate(history): #Function to calculate winrate
-    if totalround !=0:                        #Check if totalround have data
+    if totalround !=0: #Check if totalround have data
         winrate = (winround/totalround) * 100 #Calculating winrate
     else:
-        winrate = 0                           #Error handling, for if no rounds have been played
-    return winround, winrate                  #Return calculations
+        winrate = 0  #Error handling, for if no rounds have been played
+    return winround, winrate  #Return calculations
 
 def displayhistory(history):                    #Function to show history of rounds and win rate
     totalwin, winrate= calwinrate(history)      #Calculating totalwin and winrate
@@ -88,7 +88,7 @@ def displayhistory(history):                    #Function to show history of rou
             print("--trial round--")
 
 
-#Implementing Tree Data Structure
+#Implementing A Tree Data Structure
 class TreeNode: #Creating class to hold tree node
     def __init__(self, level, heart): #Composing TreeNode class
         self.level = level            #Setting level of node
@@ -106,28 +106,29 @@ def create_tree(current_level, level_hearts):                                 #C
         root.left.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))   #Left grandchild
     return root
 
-# add my detailed comment
 def display_tree(node):                             #Displaying tree node
     if node is not None:                            #Checking the node isn't empty
-        display_tree(node.left)                     #Recursivly having the left subtree displayed (------------------------------change-----------------------)
+        display_tree(node.left)                     #Recursivly having the left subtree displayed (---------------------maybe_change--------------)
         print(f"Level {node.level}: {node.heart}")  #Displaying the hearts of the current node
         display_tree(node.right)                    #Displaying text with same purpose of display_tree(node.left)
 
-# add my detailed comment
-def unlock_hearts(current_level):
-    wins_required = wins_to_unlock_hearts[current_level]
-    if level_wins[current_level] >= wins_required and level_hearts[current_level] is None:
-        level_hearts[current_level] = "🖤" * current_level
-        print(f"Congratulations! You've unlocked the heart for level {current_level}: {level_hearts[current_level]}")
+def unlock_hearts(current_level):                                                                                      #Unlcoking hearts based off of win requirements
+    wins_required = wins_to_unlock_hearts[current_level]                                                               #Collecting the required wins for level up
+    if level_wins[current_level] >= wins_required and level_hearts[current_level] is None:                             #Checkinng eligibility
+        level_hearts[current_level] = "🖤" * current_level                                                             #Unlocking corrisponding heart symbol
+        print(f"Congratulations! You've unlocked the heart for level {current_level}: {level_hearts[current_level]}")  #Displying achievement
 
-# add my detailed comment
+
+#NOTE: REVISE JACKPOT & BONUS TO APPLY TO ALL THEMES
 def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
-    jackpot_items= ("🍀", " 7")
-    if all(symbol in jackpot_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
-        jackpot_wins["jackpot"] += 1
-        if jackpot_wins["jackpot"] == 5:  #5 "🍀", " 7" combinations to win
-            return True
-    return False
+    jackpot_items= ("🍀", " 7")                                                             #Defining the winning items
+    if all(symbol in jackpot_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):   #Defining the winning combinations and checking if present
+        jackpot_wins["jackpot"] += 1                                                        #Prograssing user through Jackpot journey
+        if jackpot_wins["jackpot"] == 5:                                                    #Checking if cobiniation has been met 5 times
+            return True                                                                     #Provide update to jackpot progress
+    return False                                                                            #Identifing there is no jackpot update
+
+#Same application used for jackpot but cobination needs to be met twice rather than five times
 def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
     bonus_items= ("🍀", " 7")
     if all(symbol in bonus_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
@@ -135,8 +136,9 @@ def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
         if bonus_wins["bonus"] == 2:  #2 "🍀", " 7" combinations to win
             return True
     return False
-# Function to allow players to choose theme, symbols, and betting options
 
+
+# Function to allow players to choose theme, symbols, and betting options
 def choose_options():
     print("Welcome to the Slot Machine. Please select a theme:"
           "\n1 -- Classic,", themes["Classic"],
@@ -368,17 +370,18 @@ while True: #Create loop
             else:
                 print("You lost")
 
-            # added new element
-            if search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
-                bonus_money = 200  # bonus money
-                credit += bonus_money
-                print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!")
-
-            # added new element
+            #Checking if the current number of wins the bonus and adding the £500 award to the users overall credit
             if search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
-                jackpot_money = 500  # jackpot money
-                credit += jackpot_money
-                print(f"Congratulations! You've spun the jackpot combination five times and won £{jackpot_money}!")
+                jackpot_money = 500  #Jackpot money of £500
+                credit += jackpot_money  #Adding prize to credit
+                print(f"Congratulations! You've spun the jackpot combination five times and won £{jackpot_money}!") #Informing user of jackpot acheivement
+
+
+            #Checking if the current number of wins the bonus and adding the £200 award to the users overall credit
+            if search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
+                bonus_money = 200  #Bonus money of £200
+                credit += bonus_money  #Adding prize to credit
+                print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!") #Informing user of bonus acheivement
 
             # Check if the user beat the game
             if current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
@@ -387,22 +390,30 @@ while True: #Create loop
 
             # Check if the current level requirement is met
             if current_level < 4 and level_wins[current_level] >= wins_to_unlock_hearts[current_level]:
-                current_level += 1
-                player_tree = create_tree(current_level, level_hearts)
-                display_tree(player_tree)
+                current_level += 1 #Progressing player to the next level
+                player_tree = create_tree(current_level, level_hearts) #Forming a new player tree for the new level
+                display_tree(player_tree) #Displying the updated tree
 
+            #Updating spin history with current data
             addspinhistory(bet_amount,bet_win, [firstsq,secondsq,thirdsq,fourthsq])
 
+    #Error handling incase user exits the gane while program awaits user input
     except Exception as e:
         print("Unfortunately, you've prompted an error:", str(e))
         print("Please try again.")
 
-
+    #Farewell message
     print("Thank you for playing.")
+
+    #Using Sort algorithm organize winnings in decinging order based on win amounts
     sorted_winnings = sorted(winnings.items(), key=lambda x: x[1], reverse=True)
+
+    #Displaying the organized winnings
     print("\nWinnings sorted from highest to lowest:")
     for round_num, win_amount in sorted_winnings:
         print(f"Round {round_num}: £{win_amount}")
-    print("Exiting the game...")
-    time.sleep(1.5)
-    break  # exit the game
+
+    #Ending user experience
+    print("Exiting the game...") #Informing user the game is ending
+    time.sleep(1.5) #Adding a delay beofre game ends
+    break  #Exiting the game loop
