@@ -62,7 +62,8 @@ class Queue: #Creating a queue data structure (class queue)
         """
         if len(self.historylist) >=self.size: #If number of data in the list more than 5
             self.historylist.pop(0)  #Delete oldest data
-        self.historylist.append(item)   #Add latest data
+            self.historylist.append(item) #Add latest data
+
     def get_history(self):  #Function print data; presenting history
         """
         Function to presenting history
@@ -241,7 +242,7 @@ def create_tree(current_level, level_hearts):
 def choose_options():
     """
     Function to choosing theme's option
-    :return:
+    :return:xdd
     """
     print("Welcome to the Slot Machine. Please select a theme:"
           "\n1 -- Classic,", themes["Classic"],
@@ -455,6 +456,8 @@ while True: #Create loop
                 credit += bet_win
                 winnings[len(winnings) + 1] = bet_win
                 winround +=1 #round win count
+            else:
+                print("You lost")
 
             # free spins
             if firstsq == fourthsq:
