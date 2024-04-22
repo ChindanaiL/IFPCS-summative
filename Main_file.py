@@ -131,7 +131,7 @@ class TreeNode: #Creating class to hold tree node
 
 def create_tree(current_level, level_hearts):                                 #Creating a function to configure a tree based on the user's current level and unlocking hearts
     """
-    Function to conficure a tree based on user's current level and unlocking heart
+    Function to configure a tree based on user's current level and unlocking heart
     :param current_level: User's current level
     :param level_hearts: User's current heart
     :return:
@@ -366,7 +366,7 @@ while True: #Create loop
         display_tree(player_tree)
 
         while credit > 0: #While user still have credits
-            print("\033[1m\nAccount Balance:",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
+            print("\033[1m\nAccount Balance:","£",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information
 
             try:
                 bet_amount_input = input("\n\tOptions:"
@@ -456,8 +456,7 @@ while True: #Create loop
                 credit += bet_win
                 winnings[len(winnings) + 1] = bet_win
                 winround +=1 #round win count
-            else:
-                print("You lost")
+
 
             # free spins
             if firstsq == fourthsq:
