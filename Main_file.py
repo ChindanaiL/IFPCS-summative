@@ -44,20 +44,38 @@ level_hearts = { #add my detailed comment #FIX AND ADD HEARTS
 }
 
 class Queue: #Creating a queue data structure (class queue)
+    """
+    Class of queue for round's history
+    """
     def __init__(self,size): #Establishing requirements for queue
+        """
+        Define the requirement for queue and creating list to store the history
+
+        """
         self.size = size     #Establishing the max size of the queue
         self.historylist=[]  #Creating a list to store history
 
     def enqueue(self, item):  #Function to keep the history updated
+        """
+        Function to update the list of history
+        if data in list more than 5, delete oldest data and add newest data
+        """
         if len(self.historylist) >=self.size: #If number of data in the list more than 5
             self.historylist.pop(0)  #Delete oldest data
         self.historylist.append(item)   #Add latest data
     def get_history(self):  #Function print data; presenting history
+        """
+        Function to presenting history
+
+        """
         return self.historylist  #Display data in list
 
 slothistory = Queue(5) #Create queue for storing last 5 rounds history
 
 def addspinhistory(bet_amount, win_amount, symbols): #Function to add spin data into the list
+    """
+    Add spin data each round into the list of spin's history
+    """
     spindata = {
         "Bet amount": bet_amount,  #Store bet data
         "Win amount": win_amount,  #Store win amount
@@ -66,6 +84,9 @@ def addspinhistory(bet_amount, win_amount, symbols): #Function to add spin data 
     slothistory.enqueue(spindata) #Updating history
 
 def calwinrate(history): #Function to calculate winrate
+    """
+    Function to calculate user's winrate
+    """
     if totalround !=0: #Check if totalround have data
         winrate = (winround/totalround) * 100 #Calculating winrate
     else:
@@ -73,6 +94,9 @@ def calwinrate(history): #Function to calculate winrate
     return winround, winrate  #Return calculations
 
 def displayhistory(history):                    #Function to show history of rounds and win rate
+    """
+    Function to display user's history and user's stats
+    """
     totalwin, winrate= calwinrate(history)      #Calculating totalwin and winrate
     print("\nRound history and Win rate: ")     #Print statements / visual formating
     print("Total Round Played: ", totalround)
@@ -95,6 +119,9 @@ def displayhistory(history):                    #Function to show history of rou
 
 #Implementing A Tree Data Structure
 class TreeNode: #Creating class to hold tree node
+    """
+    Class of treenode
+    """
     def __init__(self, level, heart): #Composing TreeNode class
         self.level = level            #Setting level of node
         self.heart = heart            #Setting heart symbol of node
@@ -102,6 +129,12 @@ class TreeNode: #Creating class to hold tree node
         self.right = None             #Setting right child of node
 
 def create_tree(current_level, level_hearts):                                 #Creating a function to configure a tree based on the user's current level and unlocking hearts
+    """
+    Function to conficure a tree based on user's current level and unlocking heart
+    :param current_level: User's current level
+    :param level_hearts: User's current heart
+    :return:
+    """
     root = TreeNode(1, level_hearts.get(1, "🖤"))                       #Establishing the root node with level 1 and assigned heart
     if current_level >= 2:                                                    #Assigning notes based on user level and calling for the corriponding hearts
         root.left = TreeNode(2, level_hearts.get(2, "🖤🖤"))            #Left child
@@ -112,12 +145,22 @@ def create_tree(current_level, level_hearts):                                 #C
     return root
 
 def display_tree(node):                             #Displaying tree node
+    """
+    Function of displaying tree node
+    :param node: Tree node
+    :return:
+    """
     if node is not None:                            #Checking the node isn't empty
         display_tree(node.left)                     #Recursivly having the left subtree displayed (---------------------maybe_change--------------)
         print(f"Level {node.level}: {node.heart}")  #Displaying the hearts of the current node
         display_tree(node.right)                    #Displaying text with same purpose of display_tree(node.left)
 
 def unlock_hearts(current_level):                                                                                      #Unlcoking hearts based off of win requirements
+    """
+    Function to unlocking hearts based off winning requirement
+    :param current_level: User's current level
+    :return:
+    """
     wins_required = wins_to_unlock_hearts[current_level]                                                               #Collecting the required wins for level up
     if level_wins[current_level] >= wins_required and level_hearts[current_level] is None:                             #Checkinng eligibility
         level_hearts[current_level] = "🖤" * current_level                                                             #Unlocking corrisponding heart symbol
@@ -126,6 +169,14 @@ def unlock_hearts(current_level):                                               
 
 #NOTE: REVISE JACKPOT & BONUS TO APPLY TO ALL THEMES
 def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
+    """
+    Function of searching for winning jackpot
+    :param firstsq: First slot's symbol in the game
+    :param secondsq: Second slot's symbol in the game
+    :param thirdsq: Third slot's symbol in the game
+    :param fourthsq: Fourth slot's symbol in the game
+    :return:
+    """
     jackpot_items= ("🍀", " 7")                                                             #Defining the winning items
     if all(symbol in jackpot_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):   #Defining the winning combinations and checking if present
         jackpot_wins["jackpot"] += 1                                                        #Prograssing user through Jackpot journey
@@ -135,6 +186,14 @@ def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
 
 #Same application used for jackpot but cobination needs to be met twice rather than five times
 def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
+    """
+    Function to define the winning bonus
+    :param firstsq: First slot's symbol in the game
+    :param secondsq: Second slot's symbol in the game
+    :param thirdsq: Third slot's symbol in the game
+    :param fourthsq: Fourth slot's symbol in the game
+    :return:
+    """
     bonus_items= ("🍀", " 7")
     if all(symbol in bonus_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
         bonus_wins["bonus"] += 1
@@ -143,11 +202,26 @@ def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
     return False
 
 class MysteryTheme(TreeNode): #class for mysterytheme
+    """
+    Class of mystery theme by using tree node
+    """
     def __init__(self, level, heart, theme):
+        """
+        Function to initialise new treenode object
+        :param level: level of tree node
+        :param heart: heart represent treenode
+        :param theme: theme of treenode
+        """
         super().__init__(level, heart)
         self.theme = theme
 
 def create_tree(current_level, level_hearts):
+    """
+    Function to create tree for mystery tree
+    :param current_level: User's current level
+    :param level_hearts: User's current heart level
+    :return:
+    """
     root = TreeNode(1, level_hearts.get(1,"🖤"))
     if current_level >= 2:
         root.left = TreeNode(2, level_hearts.get(2, "🖤🖤"))  # Left child for level 2
@@ -165,6 +239,10 @@ def create_tree(current_level, level_hearts):
 
 # Function to allow players to choose theme, symbols, and betting options
 def choose_options():
+    """
+    Function to choosing theme's option
+    :return:
+    """
     print("Welcome to the Slot Machine. Please select a theme:"
           "\n1 -- Classic,", themes["Classic"],
           "\n2 -- Fruit", themes["Fruit"],
