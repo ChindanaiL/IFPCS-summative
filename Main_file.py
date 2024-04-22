@@ -18,6 +18,7 @@ initialcredits = 100 #Player's credits
 current_level = 1 #Player's current level/account status
 winround = 0 #Number of rounds won
 totalround = 0 #Number of rounds played
+winningcondition = None
 itemlist = None
 selectedtheme = None
 
@@ -234,25 +235,27 @@ def choose_options():
         itemlist = themes["Aquarium"]  # select itemlist Aquarium
         winningcondition = (
             "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
-            "\n\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\tWinning amount:\tBet amount *20"
-            "\n\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\tWinning amount:\tBet amount *5"
-            "\n\t\t🐠\t\t\t\t\t🐠\t\t\t\t   🦈/🐠\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tBet amount *2"
-            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tFree spin")
+            "\n\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\tWinning amount:\tBet amount *30"
+            "\n\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\tWinning amount:\tBet amount *7.5"
+            "\n\t\t🐠\t\t\t\t\t🐠\t\t\t\t   🦈/🐠\t\t\t  ______\t\tWinning amount:\tBet amount *4.5"
+            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *3"
+            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\tWinning amount:\tBet amount *3"
+            "\n\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tBet amount *3"
+            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tFree spin"
+            "The Mystery Theme awards 1.5 times rewards.")
 
     elif selectedtheme == '5' and current_level >= 3:  # if typing '5'
         itemlist = themes["Vehicles"]  # select itemlist Vehicles
         winningcondition = (
             "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
-            "\n\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\tWinning amount:\tBet amount *20"
-            "\n\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\tWinning amount:\tBet amount *5"
-            "\n\t\t🚗\t\t\t\t\t🚗\t\t\t\t   🏎/🚗\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tBet amount *2"
-            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tFree spin")
+            "\n\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\tWinning amount:\tBet amount *40"
+            "\n\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\tWinning amount:\tBet amount *10"
+            "\n\t\t🚗\t\t\t\t\t🚗\t\t\t\t   🏎/🚗\t\t\t  ______\t\tWinning amount:\tBet amount *6"
+            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *4"
+            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\tWinning amount:\tBet amount *4"
+            "\n\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tBet amount *4"
+            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tFree spin"
+            "--The Mystery Theme awards double rewards.--")
 
     print("")
     print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂")  # the welcome message
@@ -366,6 +369,10 @@ while True: #Create loop
 
 
             if bet_win > 0:
+                if selectedtheme == "4":
+                    bet_win *=1.5
+                if selectedtheme == "5":
+                    bet_win *=2
                 print("You won £", bet_win)
                 credit += bet_win
                 winnings[len(winnings) + 1] = bet_win
