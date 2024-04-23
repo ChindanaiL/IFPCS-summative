@@ -1,10 +1,8 @@
 import random #Importing library to generate random numbers; implementing the game of chance aspect of the code #Student ID:5584703
 
-import time #Importing library to implement a set pace for the game #Student ID: 5558810
+import time #Importing library to implement a set pace for the game#Student ID: 5558810
 
 from collections import Counter #Importing collections.Counter library for Counter data structure #Student ID: 5532370
-
-
 
 #Define themes, symbols, and betting options. Implementing through an immutable array #Student ID:5584703 #Student ID: 5558810
 themes = {
@@ -34,8 +32,6 @@ bonus_wins = Counter() #Utilizing Counter to keep track of bonus wins #Student I
 jackpot_wins = Counter() #Utilizing Counter to keep track of jackpot wins #Student ID: 5532370
 
 
-
-
 wins_to_unlock_hearts = {  #Defining the win requirments needed to unlock hearts for each level #Student ID: 5532370
     1: 2,   #Level 1 = 2 wins
     2: 3,   #Level 2 = 3 aditional wins
@@ -54,7 +50,7 @@ class Queue: #Creating a queue data structure (class queue) #Student ID: 5558810
     """
     Class of queue for round's history
     """
-    def __init__(self,size): #Establishing requirements for queue #Student ID: 5558810
+    def __init__(self,size): #Establishing requirements for queue
         """
         Define the requirement for queue and creating list to store the history
 
@@ -62,25 +58,22 @@ class Queue: #Creating a queue data structure (class queue) #Student ID: 5558810
         self.size = size     #Establishing the max size of the queue
         self.historylist=[]  #Creating a list to store history
 
-    def enqueue(self, item):  #Function to keep the history updated #Student ID: 5558810
+    def enqueue(self, item):  #Function to keep the history updated
         """
         Function to update the list of history
         if data in list more than 5, delete oldest data and add newest data
         """
         if len(self.historylist) >=self.size: #If number of data in the list more than 5
             self.historylist.pop(0)  #Delete oldest data
-            self.historylist.append(item) #Add latest data
-
-    def get_history(self):  #Function print data; presenting history #Student ID: 5558810
+        self.historylist.append(item)   #Add latest data
+    def get_history(self):  #Function print data; presenting history
         """
         Function to presenting history
 
         """
         return self.historylist  #Display data in list
 
-
 slothistory = Queue(5) #Create queue for storing last 5 rounds history #Student ID: 5558810
-
 
 def addspinhistory(bet_amount, win_amount, symbols): #Function to add spin data into the list #Student ID: 5558810
     """
@@ -138,11 +131,10 @@ class TreeNode: #Creating class to hold tree node #Student ID: 5532370
         self.left = None              #Setting left child of node
         self.right = None             #Setting right child of node
 
-
 #Student ID: 5532370
 def create_tree(current_level, level_hearts):                                 #Creating a function to configure a tree based on the user's current level and unlocking hearts
     """
-    Function to configure a tree based on user's current level and unlocking heart
+    Function to conficure a tree based on user's current level and unlocking heart
     :param current_level: User's current level
     :param level_hearts: User's current heart
     :return:
@@ -156,8 +148,7 @@ def create_tree(current_level, level_hearts):                                 #C
         root.left.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))   #Left grandchild
     return root
 
-
-def display_tree(node):                             #Displaying tree node
+def display_tree(node):                             #Displaying tree node #Student ID: 5532370
     """
     Function of displaying tree node
     :param node: Tree node
@@ -168,9 +159,8 @@ def display_tree(node):                             #Displaying tree node
         print(f"Level {node.level}: {node.heart}")  #Displaying the hearts of the current node
         display_tree(node.right)                    #Displaying text with same purpose of display_tree(node.left)
 
-
 #Student ID: 5532370
-def unlock_hearts(current_level):                                                                                      #Unlcoking hearts based off of win requirements
+def unlock_hearts(current_level):                                                                                       #Unlcoking hearts based off of win requirements
     """
     Function to unlocking hearts based off winning requirement
     :param current_level: User's current level
@@ -182,8 +172,8 @@ def unlock_hearts(current_level):                                               
         print(f"Congratulations! You've unlocked the heart for level {current_level}: {level_hearts[current_level]}")  #Displying achievement
 
 
-
-def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq): #Student ID: 5532370
+#NOTE: REVISE JACKPOT & BONUS TO APPLY TO ALL THEMES
+def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):#Student ID: 5532370
     """
     Function of searching for winning jackpot
     :param firstsq: First slot's symbol in the game
@@ -193,16 +183,14 @@ def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq): #Student I
     :return:
     """
     jackpot_items= ("🍀", " 7")                                                             #Defining the winning items
-    symbols = [firstsq,secondsq,thirdsq,fourthsq]                                           #List of symbols from the slots
-    for k in range (len(symbols)):                                                          #Defining the winning combinations and checking if present
-        for j in range (k + 1, len(symbols)):
-            for i in range (j+1, len(symbols)):
-                if all(symbol in jackpot_items for symbol in [symbols[k], symbols[j], symbols[i]]):
-                    return True
-    return False
+    if all(symbol in jackpot_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):   #Defining the winning combinations and checking if present
+        jackpot_wins["jackpot"] += 1                                                        #Prograssing user through Jackpot journey
+        if jackpot_wins["jackpot"] == 5:                                                    #Checking if cobiniation has been met 5 times
+            return True                                                                     #Provide update to jackpot progress
+    return False                                                                            #Identifing there is no jackpot update
 
-#Same application used for jackpot but different combination
-def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq): #Student ID: 5532370 & 5584703
+#Same application used for jackpot but cobination needs to be met twice rather than five times
+def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):#Student ID: 5532370 & 5584703
     """
     Function to define the winning bonus
     :param firstsq: First slot's symbol in the game
@@ -211,15 +199,14 @@ def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq): #Student ID
     :param fourthsq: Fourth slot's symbol in the game
     :return:
     """
-    bonus_items= (" 7", " 7")
-    symbols = [firstsq,secondsq,thirdsq,fourthsq]
-    for k in range (len(symbols)):
-        for j in range (k + 1, len(symbols)):
-            for i in range (j+1, len(symbols)):
-                if all(symbol in bonus_items for symbol in [symbols[k], symbols[j], symbols[i]]):
-                    return True
+    bonus_items= ("🍀", " 7")
+    if all(symbol in bonus_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):
+        bonus_wins["bonus"] += 1
+        if bonus_wins["bonus"] == 2:  #2 "🍀", " 7" combinations to win
+            return True
     return False
-class MysteryTheme(TreeNode): #class for mysterytheme #Student ID: 5558810
+
+class MysteryTheme(TreeNode): #class for mysterytheme  #Student ID: 5558810
     """
     Class of mystery theme by using tree node
     """
@@ -233,7 +220,7 @@ class MysteryTheme(TreeNode): #class for mysterytheme #Student ID: 5558810
         super().__init__(level, heart)
         self.theme = theme
 
-def create_tree(current_level, level_hearts): #Student ID: 5532370 #Student ID: 5558810
+def create_tree(current_level, level_hearts):  #Student ID: 5532370 #Student ID: 5558810
     """
     Function to create tree for mystery tree
     :param current_level: User's current level
@@ -255,30 +242,11 @@ def create_tree(current_level, level_hearts): #Student ID: 5532370 #Student ID: 
         root.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))  # Left grandchild for level 4
     return root
 
-def print_slot_result(firstsq, secondsq, thirdsq, fourthsq): #Student ID: 5584703 #Student ID: 5558810
-    """
-    Print the result of the slot machine spin with symbols displayed horizontally.
-
-    Parameters:
-        firstsq (str): Symbol for the first slot.
-        secondsq (str): Symbol for the second slot.
-        thirdsq (str): Symbol for the third slot.
-        fourthsq (str): Symbol for the fourth slot.
-    """
-    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
-          " | ", random.choice(itemlist), " | ")
-    print('------------------------------')
-    print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq, " |")
-    print('------------------------------')
-    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
-          " | ", random.choice(itemlist), " | ")
-    print('------------------------------')
-
 # Function to allow players to choose theme, symbols, and betting options
 def choose_options(): #Student ID: 5532370 #Student ID: 5558810
     """
     Function to choosing theme's option
-    :return:xdd
+    :return:
     """
     print("Welcome to the Slot Machine. Please select a theme:"
           "\n1 -- Classic,", themes["Classic"],
@@ -310,83 +278,82 @@ def choose_options(): #Student ID: 5532370 #Student ID: 5558810
             print("")
             return choose_options() #go back and ask again
 
-    if selectedtheme =='1': #if typing '1' #Student ID: 5558810
+    if selectedtheme =='1': #if typing '1'
         itemlist = themes["Classic"] #select itemlist classic
         winningcondition = (
-        "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:" #Student ID: 5532370
-        "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20"
-        "\n\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\tWinning amount:\tBet amount *5"
-        "\n\t\t🍊\t\t\t\t\t🍊\t\t\t\t   🍒/🍊\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-        "\n\t\t7\t\t\t\t\t7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-        "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-        "\n\t  ______\t\t\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tBet amount *2"
-        "\n\t7/🍊/🍒/🍀\t\t\t  ______\t\t\t  ______\t\t\t7/🍊/🍒/🍀\t\tWinning amount:\tFree spin")
+        "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
+        "\n\t  🍒  \t\t  🍒  \t\t  🍒  \t\t  🍒 \t\t\tWinning amount:\tBet amount *20"
+        "\n\t7/🍊/🍀\t7/🍊/🍀\t7/🍊/🍀\t7/🍊/🍀\t\tWinning amount:\tBet amount *5"
+        "\n\t  🍊  \t\t  🍊  \t\t 🍒/🍊 \t______\t\t\tWinning amount:\tBet amount *3"
+        "\n\t  7  \t\t  7  \t\t______\t\t______\t\t\tWinning amount:\tBet amount *2"
+        "\n     7/🍊/🍒/🍀\t______ \t\t7/🍊/🍒/🍀\t______\t\t\tWinning amount:\tBet amount *2"
+        "\n\t______\t\t7/🍊/🍒/🍀\t______  \t7/🍊/🍒/🍀\t\tWinning amount:\tBet amount *2"
+        "\n     7/🍊/🍒/🍀\t______ \t\t______ \t\t7/🍊/🍒/🍀\t\tWinning amount:\tFree spin")
 
-    elif selectedtheme =='2': #if typing '2' #Student ID: 5558810
+    elif selectedtheme =='2': #if typing '2'
         itemlist = themes["Fruit"] #select itemlist fruit
         winningcondition = (
-            "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:" 
-            "\n\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\tWinning amount:\tBet amount *20"
-            "\n\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\tWinning amount:\tBet amount *5"
-            "\n\t\t🍇\t\t\t\t\t🍇\t\t\t\t   🍉/🍇\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t 7/🍇/🍉/🍋\t\t  ______\t\t\t 7/🍇/🍉/🍋\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t  ______\t\t\t 7/🍇/🍉/🍋\t\t  ______\t\t\t 7/🍇/🍉/🍋\tWinning amount:\tBet amount *2"
-            "\n\t 7/🍇/🍉/🍋\t\t  ______\t\t\t  ______\t\t\t 7/🍇/🍉/🍋\tWinning amount:\tFree spin")
+            "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n\t  🍉  \t\t  🍉  \t\t  🍉  \t\t  🍉  \t\t\tWinning amount:\tBet amount *20"
+            "\n\t7/🍇/🍋\t7/🍇/🍋\t7/🍇/🍋\t7/🍇/🍋\t\tWinning amount:\tBet amount *5"
+            "\n\t  🍇  \t\t  🍇  \t\t 🍉/🍇 \t______\t\t\tWinning amount:\tBet amount *3"
+            "\n\t  7  \t\t   7  \t\t______\t\t______\t\t\tWinning amount:\tBet amount *2"
+            "\n     7/🍇/🍉/🍋\t______ \t\t7/🍇/🍉/🍋\t______\t\t\tWinning amount:\tBet amount *2"
+            "\n\t______\t\t7/🍇/🍉/🍋\t______  \t7/🍇/🍉/🍋\t\tWinning amount:\tBet amount *2"
+            "\n     7/🍇/🍉/🍋\t______ \t\t______ \t\t7/🍇/🍉/🍋\t\tWinning amount:\tFree spin")
 
-    elif selectedtheme =='3': #if typing '3' #Student ID: 5558810
+
+    elif selectedtheme =='3': #if typing '3'
         itemlist = themes["Animal"] #select itemlist animal
         winningcondition = (
             "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
-            "\n\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\tWinning amount:\tBet amount *20"
-            "\n\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\tWinning amount:\tBet amount *5"
-            "\n\t\t🐭\t\t\t\t\t🐭\t\t\t\t   🐱/🐭\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t 7/🐭/🐱/🐹\t\t  ______\t\t\t 7/🐭/🐱/🐹\t\t  ______\t\tWinning amount:\tBet amount *2"
-            "\n\t  ______\t\t\t 7/🐭/🐱/🐹\t\t  ______\t\t\t 7/🐭/🐱/🐹\tWinning amount:\tBet amount *2"
-            "\n\t 7/🐭/🐱/🐹\t\t  ______\t\t\t  ______\t\t\t 7/🐭/🐱/🐹\tWinning amount:\tFree spin")
+            "\n\t  🐱  \t\t  🐱  \t\t  🐱  \t\t  🐱  \t\t\tWinning amount:\tBet amount *20"
+            "\n\t7/🐭/🐹\t7/🐭/🐹\t7/🐭/🐹\t7/🐭/🐹\t\tWinning amount:\tBet amount *5"
+            "\n\t  🐭  \t\t  🐭  \t\t 🐱/🐭 \t______\t\t\tWinning amount:\tBet amount *3"
+            "\n\t  7  \t\t   7  \t\t______\t\t______\t\t\tWinning amount:\tBet amount *2"
+            "\n     7/🐭/🐱/🐹\t______ \t\t7/🐭/🐱/🐹\t______\t\t\tWinning amount:\tBet amount *2"
+            "\n\t______\t\t7/🐭/🐱/🐹\t______  \t7/🐭/🐱/🐹\t\tWinning amount:\tBet amount *2"
+            "\n     7/🐭/🐱/🐹\t______ \t\t______ \t\t7/🐭/🐱/🐹\t\tWinning amount:\tFree spin")
 
-    elif selectedtheme == '4' and current_level >= 2:  # if typing '4' #Student ID: 5558810
+
+    elif selectedtheme == '4' and current_level >= 2:  # if typing '4'
         itemlist = themes["Aquarium"]  # select itemlist Aquarium
         winningcondition = (
             "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
-            "\n\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\tWinning amount:\tBet amount *30"
-            "\n\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\tWinning amount:\tBet amount *7.5"
-            "\n\t\t🐠\t\t\t\t\t🐠\t\t\t\t   🦈/🐠\t\t\t  ______\t\tWinning amount:\tBet amount *4.5"
-            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\tWinning amount:\tBet amount *3"
-            "\n\t  ______\t\t\t 7/🐠/🦈/🐡\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tBet amount *3"
-            "\n\t 7/🐠/🦈/🐡\t\t  ______\t\t\t  ______\t\t\t 7/🐠/🦈/🐡\tWinning amount:\tFree spin"
+            "\n\t  🦈  \t\t  🦈  \t\t  🦈  \t\t  🦈  \t\t\tWinning amount:\tBet amount *30"
+            "\n\t7/🐠/🐡\t7/🐠/🐡\t7/🐠/🐡\t7/🐠/🐡\t\tWinning amount:\tBet amount *7.5"
+            "\n\t  🐠  \t\t  🐠  \t\t 🦈/🐠 \t______\t\t\tWinning amount:\tBet amount *4.5"
+            "\n\t  7  \t\t   7  \t\t______\t\t______\t\t\tWinning amount:\tBet amount *3"
+            "\n     7/🐠/🦈/🐡\t______ \t\t7/🐠/🦈/🐡\t______\t\t\tWinning amount:\tBet amount *3"
+            "\n\t______\t\t7/🐠/🦈/🐡\t______  \t7/🐠/🦈/🐡\t\tWinning amount:\tBet amount *3"
+            "\n     7/🐠/🦈/🐡\t______ \t\t______ \t\t7/🐠/🦈/🐡\t\tWinning amount:\tFree spin"
             "The Mystery Theme awards 1.5 times rewards.")
 
-    elif selectedtheme == '5' and current_level >= 3:  # if typing '5' #Student ID: 5558810
+    elif selectedtheme == '5' and current_level >= 3:  # if typing '5'
         itemlist = themes["Vehicles"]  # select itemlist Vehicles
         winningcondition = (
             "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
-            "\n\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\tWinning amount:\tBet amount *40"
-            "\n\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\tWinning amount:\tBet amount *10"
-            "\n\t\t🚗\t\t\t\t\t🚗\t\t\t\t   🏎/🚗\t\t\t  ______\t\tWinning amount:\tBet amount *6"
-            "\n\t\t 7\t\t\t\t\t 7\t\t\t\t  ______\t\t\t  ______\t\tWinning amount:\tBet amount *4"
-            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\tWinning amount:\tBet amount *4"
-            "\n\t  ______\t\t\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tBet amount *4"
-            "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tFree spin"
+            "\n\t  🏎  \t\t  🏎  \t\t  🏎  \t\t  🏎  \t\t\tWinning amount:\tBet amount *40"
+            "\n\t7/🚗/🏍\t7/🚗/🏍\t7/🚗/🏍\t7/🚗/🏍\t\tWinning amount:\tBet amount *10"
+            "\n\t  🚗  \t\t  🚗  \t\t 🏎/🚗 \t______\t\t\tWinning amount:\tBet amount *6"
+            "\n\t  7  \t\t   7  \t\t______\t\t______\t\t\tWinning amount:\tBet amount *4"
+            "\n     7/🚗/🏎/🏍\t______ \t\t7/🚗/🏎/🏍\t______\t\t\tWinning amount:\tBet amount *4"
+            "\n\t______\t\t7/🚗/🏎/🏍\t_______  \t7/🚗/🏎/🏍\t\tWinning amount:\tBet amount *4"
+            "\n     7/🚗/🏎/🏍\t______  \t\t______ \t\t7/🚗/🏎/🏍\t\tWinning amount:\tFree spin"
             "--The Mystery Theme awards double rewards.--")
 
-        print()
-
-
     print("")
-    print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂")  # the welcome message #Student ID: 5532370
+    print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂")  # the welcome message
     print("")
     print(
-        "        \033[1mTo beat the game you must have more than £30000\033[1m")  # using ANSI escape sequences to bold text
+        "        \033[1mTo beat the game you must complete two main requirements\033[1m")  # using ANSI escape sequences to bold text
     time.sleep(1)
     print("")
     print("itemlist: ", itemlist)
     print(winningcondition)
     time.sleep(2)
     print(
-        "\n2. Pass all four levels of status: \n\t2 wins \t\tlevel 1\t\t🖤 \n\t3 wins \t\tlevel 2\t\t🖤🖤 \n\t4 wins \t\tlevel 3\t\t🖤🖤🖤 \n\t5 wins \t\tlevel 4\t\t🖤🖤🖤🖤") #Student ID: 5532370
+        "\n2. Pass all four levels of status: \n\t2 wins \t\tlevel 1\t\t🖤 \n\t3 wins \t\tlevel 2\t\t🖤🖤 \n\t4 wins \t\tlevel 3\t\t🖤🖤🖤 \n\t5 wins \t\tlevel 4\t\t🖤🖤🖤🖤")
     print("")
     print("LET THE GAMES BEGIN...")
     return selectedtheme, itemlist
@@ -397,36 +364,35 @@ secondsq = None #variable for second slot
 thirdsq = None #variable for third slot
 fourthsq = None #variable for fourth slot
 
-
 #Student ID: 5532370
 while True: #Create loop
     #add detailed comment
     try:
-        selectedtheme, itemlist = choose_options() #Update theme and itemlist #Student ID: 5558810
+        selectedtheme, itemlist = choose_options()#Update theme and itemlist #Student ID: 5558810
         player_tree = create_tree(current_level, level_hearts)
         display_tree(player_tree)
 
         while credit > 0: #While user still have credits
-            print("\033[1m\nAccount Balance:","£",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information #Student ID: 5558810
+            print("\033[1m\nAccount Balance:","£",credit) #\nAccount Status:", level_hearts[current_level], "\033[1m") #printing and updating the account information#Student ID: 5558810
 
             try:
                 bet_amount_input = input("\n\tOptions:"
-                                     "\n\tType 'trial' for free trial."
-                                     "\n\tType 'history' to see your last 5 round history and all-time winrate."
+                                     "\n\tType 'trial' for free trial"
+                                     "\n\tType 'history' to see your last 5 round history and all-time winrate, "
                                      "\n\tType 'quit' to exit the game."
-                                     "\n\tType 'theme to choose a different themes."
-                                     "\n\n\tEnter Bet Amount or Select Listed Option: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit' #Student ID: 5558810
+                                     "\n\tType 'theme to choose a different themes"
+                                     "\n\n\tEnter Bet Amount or Select Listed Option: ") #Asking how much user want to place a bet, if user want to try the spin type'0', want to exit program type 'quit'#Student ID: 5558810
             except KeyboardInterrupt:
                 print("\nYou've interrupted the program. Please start over.") #For when the user interupts the program by terminating the terminal mid response
                 break
 
-            if bet_amount_input.lower() == "trial": #change user input to lowercase and if input 'trial' #Student ID: 5558810
+            if bet_amount_input.lower() == "trial": #change user input to lowercase and if input 'trial'#Student ID: 5558810
                 bet_amount = 0 #given bet amount =0 and start free trial round
 
-            elif bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit' #Student ID: 5558810
+            elif bet_amount_input.lower() == "quit": #change user input into lowercase and if input == 'quit'#Student ID: 5558810
                 break #break the loop
 
-            elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history' #Student ID: 5558810
+            elif bet_amount_input.lower() == "history":  #change user input into lowercase and if input == 'history'#Student ID: 5558810
                if slothistory.get_history(): #checkk if history empty or not
                     displayhistory(slothistory.get_history()) #call function to print history and winrate
                     time.sleep(1.5)
@@ -434,16 +400,16 @@ while True: #Create loop
                    print("\nNo history available yet.")
                continue #restart the loop
 
-            elif bet_amount_input.isdigit(): #if user input is in degit #Student ID: 5558810
+            elif bet_amount_input.isdigit(): #if user input is in degit#Student ID: 5558810
                 bet_amount = int(bet_amount_input) #change user input into integer format
-                if bet_amount ==0: #check if bet amount is equal to '0'
+                if bet_amount ==0: #check if bet amount is equal to '0' #Student ID: 5558810
                     print("invalid input, Please enter a positive integer for the bet amount.")
                     continue
-                if bet_amount > credit: #check if bet amount is higher than user's credits  #Student ID: 5558810
+                if bet_amount > credit: #check if bet amount is higher than user's credits #Student ID: 5558810
                     print("Not enough credit, please try again.") #show error message
                     continue #go back to start
 
-            elif bet_amount_input.lower() == "theme": #if user input is theme
+            elif bet_amount_input.lower() == "theme": #if user input is theme #Student ID: 5558810
                 selectedtheme, itemlist = choose_options() #choose new theme and update item
                 continue
             else:
@@ -461,8 +427,17 @@ while True: #Create loop
             print("Stake accepted. Good luck.")
             print("Spinning now...")
             time.sleep(1)  # delay the program for 1 second
-            #Display Slot result #Student ID: 5558810
-            print_slot_result(firstsq,secondsq,thirdsq,fourthsq)
+            # designing the way the slot will display
+            print()
+
+            print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
+            print('------------------------------')
+
+            print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq, " | ")  # show the result after spin
+            print('------------------------------')
+
+            print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
+            print()
             # adding different ways to win #Student ID:5584703
             bet_win = 0
             if firstsq == secondsq == thirdsq == fourthsq and [firstsq,secondsq,thirdsq,fourthsq] != ['🍒', '🍉', '🐱','🦈','🏎']:
@@ -479,7 +454,7 @@ while True: #Create loop
                 bet_win = bet_amount * 2
 
 
-            if bet_win > 0: #Student ID: 5584703
+            if bet_win > 0: #Student ID:5584703
                 if selectedtheme == "4":
                     bet_win *=1.5
                 if selectedtheme == "5":
@@ -488,7 +463,6 @@ while True: #Create loop
                 credit += bet_win
                 winnings[len(winnings) + 1] = bet_win
                 winround +=1 #round win count
-
 
             # free spins #Student ID:5584703
             if firstsq == fourthsq:
@@ -506,7 +480,19 @@ while True: #Create loop
                     print("Spinning now...")
                     time.sleep(1)
 
-                    print_slot_result(firstsq,secondsq,thirdsq,fourthsq) #Display the slot game
+                    print()
+
+                    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+                          " | ", random.choice(itemlist), " | ")
+                    print('------------------------------')
+
+                    print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq,
+                          " | ")  # show the result after spin
+                    print('------------------------------')
+
+                    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+                          " | ", random.choice(itemlist), " | ")
+                    print()
 
                     #conditions to win free spins #Student ID:5584703
                     spinwin = 0
@@ -535,7 +521,7 @@ while True: #Create loop
                     else:
                         print("You lost")
 
-            #checking if the user beat the game #Student ID: 5532370
+            #checking if the user beat the game #Student ID:5532370
             if bet_win > 0 or freespinwin > 0:
                 credit += bet_win
                 level_wins[current_level] += 1
@@ -557,8 +543,8 @@ while True: #Create loop
                 print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!") #Informing user of bonus acheivement
 
             # Check if the user beat the game
-            if credit >= 30000 and current_level == 4: #Student ID: 5558810
-                print("Congratulations!, You have £", credit," and at level 4. You've beat the game!")
+            if credit >= 30000 and current_level == 4:  # Student ID: 5558810
+                print("Congratulations!, You have £", credit, " and at level 4. You've beat the game!")
                 time.sleep(1)
                 break
 
@@ -569,9 +555,9 @@ while True: #Create loop
                 display_tree(player_tree) #Displying the updated tree
 
             #Updating spin history with current data
-            addspinhistory(bet_amount,bet_win, [firstsq,secondsq,thirdsq,fourthsq]) #Student ID: 5558810
+            addspinhistory(bet_amount,bet_win, [firstsq,secondsq,thirdsq,fourthsq])
 
-    #Error handling incase user exits the gane while program awaits user input #Student ID: 5532370
+    #Error handling incase user exits the gane while program awaits user input#Student ID: 5532370
     except Exception as e:
         print("Unfortunately, you've prompted an error:", str(e))
         print("Please try again.")
