@@ -1,8 +1,8 @@
-import random #Importing library to generate random numbers; implementing the game of chance aspect of the code
+import random #Importing library to generate random numbers; implementing the game of chance aspect of the code 5584703
 import time #Importing library to implement a set pace for the game
 from collections import Counter #Importing collections.Counter library for Counter data structure
 
-#Define themes, symbols, and betting options. Implementing through an immutable array
+#Define themes, symbols, and betting options. Implementing through an immutable array 5584703
 themes = {
     "Classic": (" 7", "🍊", "🍒", "🍀"),
     "Fruit": (" 7", "🍋", "🍇", "🍉"),
@@ -13,7 +13,7 @@ themes = {
 
 #Initializing and tracking variables
 
-freespinwin = 0 #Winnings from free spins
+freespinwin = 0 #Winnings from free spins 5584703
 initialcredits = 100 #Player's credits
 current_level = 1 #Player's current level/account status
 winround = 0 #Number of rounds won
@@ -23,9 +23,9 @@ itemlist = None
 selectedtheme = None
 
 credit = initialcredits #Current value of credits availiable to gamble
-winnings = {} #Creating an empty dictionary in order to store wins within each round
+winnings = {} #Creating an empty dictionary in order to store wins within each round5584703
 level_wins = Counter() #Utilizing Counter to keep track of wins per level
-bonus_wins = Counter() #Utilizing Counter to keep track of bonus wins
+bonus_wins = Counter() #Utilizing Counter to keep track of bonus wins5584703
 jackpot_wins = Counter() #Utilizing Counter to keep track of jackpot wins
 
 
@@ -187,7 +187,7 @@ def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
                     return True
     return False
 
-#Same application used for jackpot but cobination needs to be met twice rather than five times
+#Same application used for jackpot but cobination needs to be met twice rather than five times5584703
 def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
     """
     Function to define the winning bonus
@@ -240,7 +240,7 @@ def create_tree(current_level, level_hearts):
         root.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))  # Left grandchild for level 4
     return root
 
-def print_slot_result(firstsq, secondsq, thirdsq, fourthsq):
+def print_slot_result(firstsq, secondsq, thirdsq, fourthsq): #5584703
     """
     Print the result of the slot machine spin with symbols displayed horizontally.
 
@@ -260,7 +260,7 @@ def print_slot_result(firstsq, secondsq, thirdsq, fourthsq):
     print('------------------------------')
 
 # Function to allow players to choose theme, symbols, and betting options
-def choose_options():
+def choose_options(): #5584703
     """
     Function to choosing theme's option
     :return:xdd
@@ -435,17 +435,17 @@ while True: #Create loop
             if bet_amount >0:
                 totalround+=1 #count totalround that have been played
 
-            credit -= bet_amount  # update credits balance after putting the bet
-            firstsq = random.choice(itemlist)  # random first symbol using the random function
-            secondsq = random.choice(itemlist)  # random second symbol using the random function
-            thirdsq = random.choice(itemlist)  # random third symbol using the random function
-            fourthsq = random.choice(itemlist)  # random fourth symbol using the random function
+            credit -= bet_amount  # update credits balance after putting the bet5584703
+            firstsq = random.choice(itemlist)  # random first symbol using the random function5584703
+            secondsq = random.choice(itemlist)  # random second symbol using the random function5584703
+            thirdsq = random.choice(itemlist)  # random third symbol using the random function5584703
+            fourthsq = random.choice(itemlist)  # random fourth symbol using the random function5584703
             print("Stake accepted. Good luck.")
             print("Spinning now...")
             time.sleep(1)  # delay the program for 1 second
             #Display Slot result
             print_slot_result(firstsq,secondsq,thirdsq,fourthsq)
-            # adding different ways to win
+            # adding different ways to win5584703
             bet_win = 0
             if firstsq == secondsq == thirdsq == fourthsq and [firstsq,secondsq,thirdsq,fourthsq] != ['🍒', '🍉', '🐱','🦈','🏎']:
                 bet_win = bet_amount * 5
@@ -461,7 +461,7 @@ while True: #Create loop
                 bet_win = bet_amount * 2
 
 
-            if bet_win > 0:
+            if bet_win > 0: #5584703
                 if selectedtheme == "4":
                     bet_win *=1.5
                 if selectedtheme == "5":
@@ -472,12 +472,12 @@ while True: #Create loop
                 winround +=1 #round win count
 
 
-            # free spins
+            # free spins 5584703
             if firstsq == fourthsq:
                 free_spins = random.randint(1,5) # win bet 1 and 5 free spins
                 print(f'you won {free_spins} free spins')
 
-                freespinwin = 0 # initializing the freespinwin variable
+                freespinwin = 0 # initializing the freespinwin variable5584703
                 for i in range(free_spins):
                     print('you have a free spin')
                     firstsq = random.choice(itemlist)
@@ -490,7 +490,7 @@ while True: #Create loop
 
                     print_slot_result(firstsq,secondsq,thirdsq,fourthsq) #Display the slot game
 
-                    #conditions to win free spins
+                    #conditions to win free spins5584703
                     spinwin = 0
                     if firstsq == secondsq == thirdsq == fourthsq:
                         spinwin = bet_amount * 5
@@ -507,9 +507,9 @@ while True: #Create loop
                         spinwin = bet_amount * 2
 
 
-                    freespinwin += spinwin # Accumulate the winnings from each free spin
+                    freespinwin += spinwin # Accumulate the winnings from each free spin5584703
 
-                    if freespinwin > 0:
+                    if freespinwin > 0:#5584703
                         print("You won £", freespinwin)
                         credit += freespinwin
                         winnings[len(winnings) + 1] = freespinwin
@@ -532,7 +532,7 @@ while True: #Create loop
                 print(f"Congratulations! You've spun the jackpot combination five times and won £{jackpot_money}!") #Informing user of jackpot acheivement
 
 
-            #Checking if the current number of wins the bonus and adding the £200 award to the users overall credit
+            #Checking if the current number of wins the bonus and adding the £200 award to the users overall credit5584703
             if search_for_winning_bonus(firstsq, secondsq, thirdsq, fourthsq):
                 bonus_money = 200  #Bonus money of £200
                 credit += bonus_money  #Adding prize to credit
@@ -561,7 +561,7 @@ while True: #Create loop
     #Farewell message
     print("Thank you for playing.")
 
-    #Using Sort algorithm organize winnings in decinging order based on win amounts
+    #Using Sort algorithm organize winnings in decinging order based on win amounts5584703
     sorted_winnings = sorted(winnings.items(), key=lambda x: x[1], reverse=True)
 
     #Displaying the organized winnings
