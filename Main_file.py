@@ -296,7 +296,7 @@ def choose_options():
     if selectedtheme =='1': #if typing '1'
         itemlist = themes["Classic"] #select itemlist classic
         winningcondition = (
-        "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+        "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
         "\n\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\t\t\t🍒\t\t\tWinning amount:\tBet amount *20"
         "\n\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\t\t  7/🍊/🍀\t\tWinning amount:\tBet amount *5"
         "\n\t\t🍊\t\t\t\t\t🍊\t\t\t\t   🍒/🍊\t\t\t  ______\t\tWinning amount:\tBet amount *3"
@@ -308,7 +308,7 @@ def choose_options():
     elif selectedtheme =='2': #if typing '2'
         itemlist = themes["Fruit"] #select itemlist fruit
         winningcondition = (
-            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
             "\n\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\t\t\t🍉\t\t\tWinning amount:\tBet amount *20"
             "\n\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\t\t   7/🍇/🍋\t\tWinning amount:\tBet amount *5"
             "\n\t\t🍇\t\t\t\t\t🍇\t\t\t\t   🍉/🍇\t\t\t  ______\t\tWinning amount:\tBet amount *3"
@@ -320,7 +320,7 @@ def choose_options():
     elif selectedtheme =='3': #if typing '3'
         itemlist = themes["Animal"] #select itemlist animal
         winningcondition = (
-            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
             "\n\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\t\t\t🐱\t\t\tWinning amount:\tBet amount *20"
             "\n\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\t\t   7/🐭/🐹\t\tWinning amount:\tBet amount *5"
             "\n\t\t🐭\t\t\t\t\t🐭\t\t\t\t   🐱/🐭\t\t\t  ______\t\tWinning amount:\tBet amount *3"
@@ -332,7 +332,7 @@ def choose_options():
     elif selectedtheme == '4' and current_level >= 2:  # if typing '4'
         itemlist = themes["Aquarium"]  # select itemlist Aquarium
         winningcondition = (
-            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
             "\n\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\t\t\t🦈\t\t\tWinning amount:\tBet amount *30"
             "\n\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\t\t   7/🐠/🐡\t\tWinning amount:\tBet amount *7.5"
             "\n\t\t🐠\t\t\t\t\t🐠\t\t\t\t   🦈/🐠\t\t\t  ______\t\tWinning amount:\tBet amount *4.5"
@@ -345,7 +345,7 @@ def choose_options():
     elif selectedtheme == '5' and current_level >= 3:  # if typing '5'
         itemlist = themes["Vehicles"]  # select itemlist Vehicles
         winningcondition = (
-            "\n1. Earn £500. You will start with £100 and gain more based off achieving the following winning combinations:"
+            "\n1. Earn £30000. You will start with £100 and gain more based off achieving the following winning combinations:"
             "\n\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\t\t\t🏎\t\t\tWinning amount:\tBet amount *40"
             "\n\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\t\t   7/🚗/🏍\t\tWinning amount:\tBet amount *10"
             "\n\t\t🚗\t\t\t\t\t🚗\t\t\t\t   🏎/🚗\t\t\t  ______\t\tWinning amount:\tBet amount *6"
@@ -361,7 +361,7 @@ def choose_options():
     print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂")  # the welcome message
     print("")
     print(
-        "        \033[1mTo beat the game you must complete two main requirements and collect the diamond --> 💎\033[1m")  # using ANSI escape sequences to bold text
+        "        \033[1mTo beat the game you must have more than £30000\033[1m")  # using ANSI escape sequences to bold text
     time.sleep(1)
     print("")
     print("itemlist: ", itemlist)
@@ -537,8 +537,9 @@ while True: #Create loop
                 print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!") #Informing user of bonus acheivement
 
             # Check if the user beat the game
-            if current_level == 4 and credit >= 500 and all(heart == "🖤🖤🖤🖤" for heart in level_hearts.values()):
-                print("Congratulations! You've collected the diamond 💎 and you've beat the game!")
+            if credit >= 30000:
+                print("Congratulations!, You have £", credit," You've beat the game!")
+                time.sleep(1)
                 break
 
             # Check if the current level requirement is met
