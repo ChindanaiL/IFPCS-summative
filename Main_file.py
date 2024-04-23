@@ -238,6 +238,25 @@ def create_tree(current_level, level_hearts):
         root.left = TreeNode(4, level_hearts.get(4, "🖤🖤🖤🖤"))  # Left grandchild for level 4
     return root
 
+def print_slot_result(firstsq, secondsq, thirdsq, fourthsq):
+    """
+    Print the result of the slot machine spin with symbols displayed horizontally.
+
+    Parameters:
+        firstsq (str): Symbol for the first slot.
+        secondsq (str): Symbol for the second slot.
+        thirdsq (str): Symbol for the third slot.
+        fourthsq (str): Symbol for the fourth slot.
+    """
+    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+          " | ", random.choice(itemlist), " | ")
+    print('------------------------------')
+    print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq, " |")
+    print('------------------------------')
+    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
+          " | ", random.choice(itemlist), " | ")
+    print('------------------------------')
+
 # Function to allow players to choose theme, symbols, and betting options
 def choose_options():
     """
@@ -336,6 +355,8 @@ def choose_options():
             "\n\t 7/🚗/🏎/🏍\t\t\t  ______\t\t\t  ______\t\t\t 7/🚗/🏎/🏍\t\tWinning amount:\tFree spin"
             "--The Mystery Theme awards double rewards.--")
 
+        print()
+
     print("")
     print("                               ꧁  𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐭𝐡𝐞 𝐂𝐃𝐆 𝐒𝐥𝐨𝐭 𝐌𝐚𝐜𝐡𝐢𝐧𝐞  ꧂")  # the welcome message
     print("")
@@ -420,17 +441,8 @@ while True: #Create loop
             print("Stake accepted. Good luck.")
             print("Spinning now...")
             time.sleep(1)  # delay the program for 1 second
-            # designing the way the slot will display
-            print()
-
-            print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
-            print('------------------------------')
-
-            print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq, " | ")  # show the result after spin
-            print('------------------------------')
-
-            print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist), " | ")
-            print()
+            #Display Slot result
+            print_slot_result(firstsq,secondsq,thirdsq,fourthsq)
             # adding different ways to win
             bet_win = 0
             if firstsq == secondsq == thirdsq == fourthsq and [firstsq,secondsq,thirdsq,fourthsq] != ['🍒', '🍉', '🐱','🦈','🏎']:
@@ -474,19 +486,7 @@ while True: #Create loop
                     print("Spinning now...")
                     time.sleep(1)
 
-                    print()
-
-                    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
-                          " | ", random.choice(itemlist), " | ")
-                    print('------------------------------')
-
-                    print("| ", firstsq, " | ", secondsq, " | ", thirdsq, " | ", fourthsq,
-                          " | ")  # show the result after spin
-                    print('------------------------------')
-
-                    print("| ", random.choice(itemlist), " | ", random.choice(itemlist), " | ", random.choice(itemlist),
-                          " | ", random.choice(itemlist), " | ")
-                    print()
+                    print_slot_result(firstsq,secondsq,thirdsq,fourthsq) #Display the slot game
 
                     #conditions to win free spins
                     spinwin = 0
