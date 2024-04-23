@@ -179,11 +179,13 @@ def search_for_winning_jackpot(firstsq, secondsq, thirdsq, fourthsq):
     :return:
     """
     jackpot_items= ("🍀", " 7")                                                             #Defining the winning items
-    if all(symbol in jackpot_items for symbol in [firstsq, secondsq, thirdsq, fourthsq]):   #Defining the winning combinations and checking if present
-        jackpot_wins["jackpot"] += 1                                                        #Prograssing user through Jackpot journey
-        if jackpot_wins["jackpot"] == 5:                                                    #Checking if cobiniation has been met 5 times
-            return True                                                                     #Provide update to jackpot progress
-    return False                                                                            #Identifing there is no jackpot update
+    symbols = [firstsq,secondsq,thirdsq,fourthsq]                                           #List of symbols from the slots
+    for k in range (len(symbols)):                                                          #Defining the winning combinations and checking if present
+        for j in range (k + 1, len(symbols)):
+            for i in range (j+1, len(symbols)):
+                if all(symbol in jackpot_items for symbol in [symbols[k], symbols[j], symbols[i]]):
+                    return True
+    return False
 
 #Same application used for jackpot but cobination needs to be met twice rather than five times
 def search_for_winning_bonus (firstsq, secondsq, thirdsq, fourthsq):
@@ -537,8 +539,8 @@ while True: #Create loop
                 print(f"Congratulations! You've spun the bonus combination twice and won £{bonus_money}!") #Informing user of bonus acheivement
 
             # Check if the user beat the game
-            if credit >= 30000:
-                print("Congratulations!, You have £", credit," You've beat the game!")
+            if credit >= 30000 and current_level == 4:
+                print("Congratulations!, You have £", credit," and at level 4. You've beat the game!")
                 time.sleep(1)
                 break
 
